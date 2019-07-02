@@ -9,7 +9,7 @@
 #include "clientversion.h"
 
 //
-// Bootup the fortunastake, look for a 5000 D input and register on the network
+// Bootup the fortunastake, look for a 5000 CAT input and register on the network
 //
 void CActiveFortunastake::ManageStatus()
 {
@@ -506,7 +506,7 @@ vector<COutput> CActiveFortunastake::SelectCoinsFortunastake(bool fSelectUnlocke
     // Filter
     BOOST_FOREACH(const COutput& out, vCoins)
     {
-        if(out.tx->vout[out.i].nValue == GetMNCollateral()*COIN) { //exactly 5,000 D
+        if(out.tx->vout[out.i].nValue == GetMNCollateral()*COIN) { //exactly 5,000 CAT
             filteredCoins.push_back(out);
         }
     }
@@ -528,7 +528,7 @@ vector<COutput> CActiveFortunastake::SelectCoinsFortunastakeForPubKey(std::strin
     // Filter
     BOOST_FOREACH(const COutput& out, vCoins)
     {
-        if(out.tx->vout[out.i].scriptPubKey == scriptPubKey && out.tx->vout[out.i].nValue == GetMNCollateral()*COIN) { //exactly 5,000 D
+        if(out.tx->vout[out.i].scriptPubKey == scriptPubKey && out.tx->vout[out.i].nValue == GetMNCollateral()*COIN) { //exactly 5,000 CAT
             filteredCoins.push_back(out);
         }
     }

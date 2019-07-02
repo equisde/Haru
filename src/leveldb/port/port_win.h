@@ -75,7 +75,7 @@ class Mutex {
 // the Win32 API offers a dependable condition variable mechanism, but only starting with
 // Windows 2008 and Vista
 // no matter what we will implement our own condition variable with a semaphore
-// implementation as described in a paper written by Andrew D. Birrell in 2003
+// implementation as described in a paper written by Andrew CAT. Birrell in 2003
 class CondVar {
  public:
   explicit CondVar(Mutex* mu);

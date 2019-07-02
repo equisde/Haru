@@ -1231,7 +1231,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>&amp;Display</source>
-        <translation>표시(&amp;D)</translation>
+        <translation>표시(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1261,7 +1261,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>송금 목록에 주소 표시(&amp;D)</translation>
+        <translation>송금 목록에 주소 표시(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+7"/>

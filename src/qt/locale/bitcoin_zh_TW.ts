@@ -107,7 +107,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+14"/>
         <source>&amp;Delete</source>
-        <translation>刪掉(&amp;D)</translation>
+        <translation>刪掉(&amp;CAT)</translation>
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>

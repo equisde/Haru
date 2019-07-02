@@ -1136,7 +1136,7 @@ int crypto_scalarmult_ref10(unsigned char *q,
 
 /* qhasm: fe C */
 
-/* qhasm: fe D */
+/* qhasm: fe CAT */
 
 /* qhasm: fe E */
 
@@ -1160,9 +1160,9 @@ int crypto_scalarmult_ref10(unsigned char *q,
 
 /* qhasm: enter ladder */
 
-/* qhasm: D = X3-Z3 */
-/* asm 1: fe_sub(>D=fe#5,<X3=fe#3,<Z3=fe#4); */
-/* asm 2: fe_sub(>D=tmp0,<X3=x3,<Z3=z3); */
+/* qhasm: CAT = X3-Z3 */
+/* asm 1: fe_sub(>CAT=fe#5,<X3=fe#3,<Z3=fe#4); */
+/* asm 2: fe_sub(>CAT=tmp0,<X3=x3,<Z3=z3); */
 fe_sub(tmp0,x3,z3);
 
 /* qhasm: B = X2-Z2 */
@@ -1180,9 +1180,9 @@ fe_add(x2,x2,z2);
 /* asm 2: fe_add(>C=z2,<X3=x3,<Z3=z3); */
 fe_add(z2,x3,z3);
 
-/* qhasm: DA = D*A */
-/* asm 1: fe_mul(>DA=fe#4,<D=fe#5,<A=fe#1); */
-/* asm 2: fe_mul(>DA=z3,<D=tmp0,<A=x2); */
+/* qhasm: DA = CAT*A */
+/* asm 1: fe_mul(>DA=fe#4,<CAT=fe#5,<A=fe#1); */
+/* asm 2: fe_mul(>DA=z3,<CAT=tmp0,<A=x2); */
 fe_mul(z3,tmp0,x2);
 
 /* qhasm: CB = C*B */

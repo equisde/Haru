@@ -19,9 +19,9 @@ QRCodeDialog::QRCodeDialog(const QString &addr, const QString &label, bool enabl
 {
     ui->setupUi(this);
     if (label.trimmed().isEmpty()) {
-        setWindowTitle(QString("Denarius - Generate QR Code"));
+        setWindowTitle(QString("Haru - Generate QR Code"));
     } else {
-        setWindowTitle(QString("Denarius - Generate QR Code for %1").arg(label));
+        setWindowTitle(QString("Haru - Generate QR Code for %1").arg(label));
     }
     ui->chkReqPayment->setVisible(enableReq);
     ui->lblAmount->setVisible(enableReq);

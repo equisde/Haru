@@ -1,6 +1,6 @@
-Denarius
+Haru
 
-Copyright (c) 2017 Denarius Developers
+Copyright (c) 2017 Haru Developers
 Copyright (c) 2014 BlackCoin Developers
 Copyright (c) 2013 NovaCoin Developers
 Copyright (c) 2011-2013 PPCoin Developers
@@ -13,7 +13,7 @@ cryptographic software written by Eric Young (eay@cryptsoft.com).
 
 Intro
 -----
-Denarius is a free open source project derived from Bitcoin, with
+Haru is a free open source project derived from Bitcoin, with
 the goal of providing a long-term energy-efficient Tribus-based crypto-currency.
 Built on the foundation of Bitcoin, PPCoin, NovaCoin and BlackCoin, innovations such as proof-of-stake
 help further advance the field of crypto-currency.

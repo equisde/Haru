@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The DarkCoin developers
-// Copyright (c) 2018 The Denarius developers
+// Copyright (c) 2018 The Haru developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "fortunastake.h"
@@ -746,7 +746,7 @@ int CFortunaStake::SetPayRate(int nHeight)
              payCount = matches;
              payValue = amount;
              // set the node's current 'reward rate' - pay value divided by rounds (3)
-             // this rate is representative of "D per day"
+             // this rate is representative of "CAT per day"
              payRate = ((payValue / scanBack) / 30) * 86400;
              // printf("%d found with %s value %.2f rate\n", matches, FormatMoney(amount).c_str(), payRate);
              return matches;
@@ -926,7 +926,7 @@ int CFortunaStake::UpdateLastPaidAmounts(const CBlockIndex *pindex, int nMaxBloc
         // set the node's current 'reward rate' - pay per day
         payRate = ((payValue / scanBack) / 30) * 86400;
 
-        if (fDebugFS) printf("CFortunaStake::UpdateLastPaidAmounts -- MN %s in last %d blocks was paid %d times for %s D, rateperday:%s count:%d val:%s\n", address2.ToString().c_str(), scanBack, rewardCount, FormatMoney(rewardValue).c_str(), FormatMoney(payRate).c_str(), payCount, FormatMoney(payValue).c_str());
+        if (fDebugFS) printf("CFortunaStake::UpdateLastPaidAmounts -- MN %s in last %d blocks was paid %d times for %s CAT, rateperday:%s count:%d val:%s\n", address2.ToString().c_str(), scanBack, rewardCount, FormatMoney(rewardValue).c_str(), FormatMoney(payRate).c_str(), payCount, FormatMoney(payValue).c_str());
 
         return rewardCount;
     } else {

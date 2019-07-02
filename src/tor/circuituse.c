@@ -441,7 +441,7 @@ circuit_expire_building(void)
    * and then assume each link is equivalent.
    *
    * OP --a--> A --b--> B --c--> C
-   * OP --a--> A --b--> B --c--> C --d--> D
+   * OP --a--> A --b--> B --c--> C --d--> CAT
    *
    * Let h = a = b = c = d
    *

@@ -171,7 +171,7 @@ void FortunastakeManager::updateAdrenalineNode(QString alias, QString addr, QStr
                 else
                     address2.Set(address1);
                 if (vout.nValue != GetMNCollateral()*COIN)
-                    errorMessage += "TX is not equal to 5000 D. ";
+                    errorMessage += "TX is not equal to 5000 CAT. ";
             }
             //if (fDebug) printf("FortunastakeManager:: %s %s - found %s for alias %s\n", mne.getTxHash().c_str(), mne.getOutputIndex().c_str(), address2.ToString().c_str(),mne.getAlias().c_str());
             break;
@@ -533,7 +533,7 @@ void FortunastakeManager::on_startButton_clicked()
     bool result = activeFortunastake.Register(c.sAddress, c.sFortunastakePrivKey, c.sTxHash, c.sOutputIndex, errorMessage);
 
     QMessageBox msg;
-    msg.setWindowTitle("Denarius Message");
+    msg.setWindowTitle("Haru Message");
     if(result)
         msg.setText("Hybrid Fortunastake at " + QString::fromStdString(c.sAddress) + " started.");
     else
@@ -587,7 +587,7 @@ void FortunastakeManager::on_startAllButton_clicked()
     }
 
     QMessageBox msg;
-    msg.setWindowTitle("Denarius Message");
+    msg.setWindowTitle("Haru Message");
     msg.setText(results);
     msg.exec();
 
@@ -645,7 +645,7 @@ void FortunastakeManager::on_stopButton_clicked()
     std::string errorMessage;
     bool result = activeFortunastake.StopFortunaStake(c.sAddress, c.sFortunastakePrivKey, errorMessage);
     QMessageBox msg;
-    msg.setWindowTitle("Denarius Message");
+    msg.setWindowTitle("Haru Message");
     if(result)
     {
         msg.setText("Hybrid Fortunastake at " + QString::fromStdString(c.sAddress) + " stopped.");
@@ -676,7 +676,7 @@ void FortunastakeManager::on_stopAllButton_clicked()
     }
 
     QMessageBox msg;
-    msg.setWindowTitle("Denarius Message");
+    msg.setWindowTitle("Haru Message");
     msg.setText(QString::fromStdString(results));
     msg.exec();
 }

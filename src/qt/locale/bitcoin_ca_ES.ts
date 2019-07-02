@@ -2779,7 +2779,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <message>
         <location line="+117"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation>Error en inicialitzar l&apos;entorn de base de dades %s! Per recuperar, FACI UNA COPIA DE SEGURETAT D&apos;AQUEST DIRECTORI, a continuació, retiri tot d&apos;ella excepte l&apos;arxiu wallet.dat.</translation>
+        <translation>Error en inicialitzar l&apos;entorn de base de dades %s! Per recuperar, FACI UNA COPIA DE SEGURETAT CAT&apos;AQUEST DIRECTORI, a continuació, retiri tot d&apos;ella excepte l&apos;arxiu wallet.dat.</translation>
     </message>
     <message>
         <location line="-20"/>

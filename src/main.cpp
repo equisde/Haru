@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2017-2018 The Denarius developers
+// Copyright (c) 2017-2018 The Haru developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,7 +49,7 @@ unsigned int nStakeMinAge       = 8 * 60 * 60;      // 8 hour min stake age
 unsigned int nStakeMaxAge       = -1;               // unlimited
 unsigned int nModifierInterval  = 10 * 60;          // time to elapse before new modifier is computed
 int64_t nLastCoinStakeSearchTime = GetAdjustedTime();
-int nCoinbaseMaturity = 20; //30 on Mainnet D e n a r i u s, 20 for testnet
+int nCoinbaseMaturity = 20; //30 on Mainnet CAT e n a r i u s, 20 for testnet
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 bool FortunaReorgBlock = true;
@@ -78,7 +78,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "Denarius Signed Message:\n";
+const string strMessageMagic = "Haru Signed Message:\n";
 
 // Settings
 int64_t nTransactionFee = MIN_TX_FEE;
@@ -792,7 +792,7 @@ bool CTransaction::CheckTransaction() const
 
     if (nVersion == ANON_TXN_VERSION)
     {
-        // -- Prevent Anon TXs in mainnet until after block 1,350,000 (1.35m Million) ~ D e n a r i u s
+        // -- Prevent Anon TXs in mainnet until after block 1,350,000 (1.35m Million) ~ CAT e n a r i u s
 
         if (!fTestNet && nBestHeight < 1350000)
         {
@@ -1541,11 +1541,11 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 		nSubsidy = 1000000 * COIN;  // 10% Premine
 	else if (pindexBest->nHeight <= FAIR_LAUNCH_BLOCK) // Block 210, Instamine prevention
         nSubsidy = 1 * COIN/2;
-	else if (pindexBest->nHeight <= 1000000) // Block 1m ~ 3m D (33% will go to hybrid fortunastakes)
+	else if (pindexBest->nHeight <= 1000000) // Block 1m ~ 3m CAT (33% will go to hybrid fortunastakes)
 		nSubsidy = 3 * COIN;
-	else if (pindexBest->nHeight <= 2000000) // Block 2m ~ 4m D
+	else if (pindexBest->nHeight <= 2000000) // Block 2m ~ 4m CAT
 		nSubsidy = 4 * COIN;
-	else if (pindexBest->nHeight <= 3000000) // Block 3m ~ 3m D
+	else if (pindexBest->nHeight <= 3000000) // Block 3m ~ 3m CAT
 		nSubsidy = 3 * COIN;
     else if (pindexBest->nHeight > LAST_POW_BLOCK) // Block 3m
 		nSubsidy = 0; // PoW Ends
@@ -1891,7 +1891,7 @@ bool CTransaction::FetchInputs(CTxDB& txdb, const map<uint256, CTxIndex>& mapTes
     return true;
 }
 
-// Ring Signatures - D e n a r i u s
+// Ring Signatures - CAT e n a r i u s
 static bool CheckAnonInputAB(CTxDB &txdb, const CTxIn &txin, int i, int nRingSize, std::vector<uint8_t> &vchImage, uint256 &preimage, int64_t &nCoinValue)
 {
     const CScript &s = txin.scriptSig;
@@ -2524,12 +2524,12 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     }
 
     // ----------- fortunastake payments -----------
-    // Once upon a time, People were really interested in D.
-    // So much so, People wanted to bring D to the moon. Even Mars, Sooner than the roadster...
+    // Once upon a time, People were really interested in CAT.
+    // So much so, People wanted to bring CAT to the moon. Even Mars, Sooner than the roadster...
     // The Discord was active, People discussed how they would reach that goal.
     // There was one person, named Thi3rryzz watching all this from a save distance.
     // Then, the word FORTUNASTAKES came to the table.
-    // People wanted fortunastakes... Really Bad. But King Carsen was already busy with the rest of D
+    // People wanted fortunastakes... Really Bad. But King Carsen was already busy with the rest of CAT
     // So Thi3rryzz decided to jump in..
     // After a lot of: "How much for MN" and "When MN?"
     // We hope to proudly present you:
@@ -2537,17 +2537,17 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
 
     // ... after a long time, it came to be known in the lands that the fortunastakes were indeed high.
-    // many of thy were so invested in their stakes they pushed it, to get all the D they could. the streets
+    // many of thy were so invested in their stakes they pushed it, to get all the CAT they could. the streets
     // were dark and the days were long. people wanted a fair hand. they wanted to know they could rely
-    // on the D to bring them joy and happiness, and not worry for when they might next taste the D
+    // on the CAT to bring them joy and happiness, and not worry for when they might next taste the CAT
 
     // and oh ye of little faith, feast your eyes upon the broth of thine calling. the hybrid stakes are no more.
-    // gone are the days of not knowing when to expect the sweet caress of the glorious D to be gracing the silver linings
-    // of your wallet. forever more you shall know the D, and the D shall know you, and ye shall be fairly judged
+    // gone are the days of not knowing when to expect the sweet caress of the glorious CAT to be gracing the silver linings
+    // of your wallet. forever more you shall know the CAT, and the CAT shall know you, and ye shall be fairly judged
     // for all of eternity
 
 
-    // ----- Denarius fortuna stakes, the fair payment edition  -----
+    // ----- Haru fortuna stakes, the fair payment edition  -----
     // proudly presented by enkayz
 
     bool FortunastakePayments = false;
@@ -2577,7 +2577,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
         CScript burnPayee;
         CBitcoinAddress burnDestination;
-        burnDestination.SetString("DNRXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw");
+        burnDestination.SetString("CATXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw");
         burnPayee = GetScriptForDestination(burnDestination.Get());
 
         if(IsProofOfStake() && pindexBest != NULL){
@@ -2616,16 +2616,16 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
                             CScript pubScript;
 
                             if (pubScript == payee) {
-                                printf("CheckBlock-POS() : Found fortunastake payment: %s D to anonymous payee.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
+                                printf("CheckBlock-POS() : Found fortunastake payment: %s CAT to anonymous payee.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
                                 foundPayee = true;
                             } else if (payee == burnPayee) {
-                                printf("CheckBlock-POS() : Found fortunastake payment: %s D to burn address.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
+                                printf("CheckBlock-POS() : Found fortunastake payment: %s CAT to burn address.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
                                 foundPayee = true;
                             } else {
                                 CTxDestination mnDest;
                                 ExtractDestination(vtx[1].vout[i].scriptPubKey, mnDest);
                                 CBitcoinAddress mnAddress(mnDest);
-                                if (fDebug) printf("CheckBlock-POS() : Found fortunastake payment: %s D to %s.\n",FormatMoney(vtx[1].vout[i].nValue).c_str(), mnAddress.ToString().c_str());
+                                if (fDebug) printf("CheckBlock-POS() : Found fortunastake payment: %s CAT to %s.\n",FormatMoney(vtx[1].vout[i].nValue).c_str(), mnAddress.ToString().c_str());
                                 BOOST_FOREACH(CFortunaStake& mn, vecFortunastakes)
                                 {
                                     pubScript = GetScriptForDestination(mn.pubkey.GetID());
@@ -2636,7 +2636,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
                                     if (vtx[1].vout[i].scriptPubKey == pubScript)
                                     {
                                         int64_t value = vtx[1].vout[i].nValue;
-                                        if (fDebug) printf("CheckBlock-POS() : Fortunastake PoS payee found at block %d: %s who got paid %s D rate:%" PRId64" rank:%d lastpaid:%d\n", pindex->nHeight, address2.ToString().c_str(), FormatMoney(value).c_str(), mn.payRate, mn.nRank, mn.nBlockLastPaid);
+                                        if (fDebug) printf("CheckBlock-POS() : Fortunastake PoS payee found at block %d: %s who got paid %s CAT rate:%" PRId64" rank:%d lastpaid:%d\n", pindex->nHeight, address2.ToString().c_str(), FormatMoney(value).c_str(), mn.payRate, mn.nRank, mn.nBlockLastPaid);
 
                                         if (!fIsInitialDownload) {
                                             if (!CheckFSPayment(pindex, vtx[1].vout[i].nValue, mn)) // if MN is being paid and it's bottom 50% ranked, don't let it be paid.
@@ -2747,7 +2747,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
                             payee = vtx[0].vout[i].scriptPubKey;
                             ExtractDestination(payee, mnDest);
                             CBitcoinAddress mnAddress(mnDest);
-                            if (fDebug) printf("CheckBlock-POW() : Found fortunastake payment: %s D to %s.\n",FormatMoney(vtx[0].vout[i].nValue).c_str(), mnAddress.ToString().c_str());
+                            if (fDebug) printf("CheckBlock-POW() : Found fortunastake payment: %s CAT to %s.\n",FormatMoney(vtx[0].vout[i].nValue).c_str(), mnAddress.ToString().c_str());
 
                             foundPaymentAmount = true;
 
@@ -2762,7 +2762,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
                                 if (payee == pubScript)
                                 {
-                                    if (fDebug) printf("CheckBlock-POW() : Fortunastake PoW payee found at block %d: %s who got paid %s D rate:%" PRId64" rank:%d lastpaid:%d\n", pindex->nHeight, address2.ToString().c_str(), FormatMoney(vtx[0].vout[i].nValue).c_str(), FormatMoney(mn.payRate).c_str(), mn.nRank, mn.nBlockLastPaid);
+                                    if (fDebug) printf("CheckBlock-POW() : Fortunastake PoW payee found at block %d: %s who got paid %s CAT rate:%" PRId64" rank:%d lastpaid:%d\n", pindex->nHeight, address2.ToString().c_str(), FormatMoney(vtx[0].vout[i].nValue).c_str(), FormatMoney(mn.payRate).c_str(), mn.nRank, mn.nBlockLastPaid);
                                     if (!fIsInitialDownload) {
                                         if (!CheckFSPayment(pindex, vtx[0].vout[i].nValue, mn)) // if MN is being paid and it's bottom 50% ranked, don't let it be paid.
                                         {
@@ -2791,7 +2791,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
                                     paymentOK = true;
                                     break;
                                 } else if (payee == burnPayee) {
-                                    printf("CheckBlock-POW() : Found fortunastake payment: %s D to burn address.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
+                                    printf("CheckBlock-POW() : Found fortunastake payment: %s CAT to burn address.\n", FormatMoney(vtx[1].vout[i].nValue).c_str());
                                     foundPayee = true;
                                 }
                             }
@@ -3591,7 +3591,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         }
     }
 
-    // Denarius: ask for pending sync-checkpoint if any
+    // Haru: ask for pending sync-checkpoint if any
     if (!IsInitialBlockDownload()){
 
         Checkpoints::AskForPendingSyncCheckpoint(pfrom);
@@ -3780,7 +3780,7 @@ bool CheckDiskSpace(uint64_t nAdditionalBytes)
         string strMessage = _("Warning: Disk space is low!");
         strMiscWarning = strMessage;
         printf("*** %s\n", strMessage.c_str());
-        uiInterface.ThreadSafeMessageBox(strMessage, "Denarius", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        uiInterface.ThreadSafeMessageBox(strMessage, "Haru", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         StartShutdown();
         return false;
     }
@@ -3840,10 +3840,10 @@ bool LoadBlockIndex(bool fAllowNew)
 
     if (fTestNet)
     {
-        pchMessageStart[0] = 0x07;
-        pchMessageStart[1] = 0x11;
-        pchMessageStart[2] = 0x05;
-        pchMessageStart[3] = 0x0b;
+        pchMessageStart[0] = 0x04;
+        pchMessageStart[1] = 0x1b;
+        pchMessageStart[2] = 0x0c;
+        pchMessageStart[3] = 0x0x;
 
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 16 bits PoW target limit for testnet
         nStakeMinAge = 1 * 60 * 60; // test net min age is 1 hour
@@ -3867,7 +3867,7 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "http://www.coindesk.com/bitcoin-scaling-give-everyone-control/";
+        const char* pszTimestamp = "http://www.coindesk.com/bitcoin-shttps://www.coindesk.com/bitcoins-kimchi-premium-returns-with-1k-price-spreads-on-crypto-exchangescaling-give-everyone-control/";
         CTransaction txNew;
         txNew.nTime = 1497476511;
         txNew.vin.resize(1);
@@ -3879,16 +3879,16 @@ bool LoadBlockIndex(bool fAllowNew)
         block.vtx.push_back(txNew);
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
-        block.nTime    = 1497476511;
+        block.nTime    = 1562038468;
         block.nVersion = 1;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-		    block.nNonce   = 41660;
+		    block.nNonce   = 1;
 
 		    if(fTestNet)
         {
             block.nNonce   = 13278;
         }
-        if (false && (block.GetHash() != hashGenesisBlock)) {
+        if (true && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
         // creating a different genesis block:
@@ -3911,7 +3911,7 @@ bool LoadBlockIndex(bool fAllowNew)
 
 
         //// debug print
-        assert(block.hashMerkleRoot == uint256("0xc6d8e8f56c25cac33567e571a3497bfc97f715140fcfe16d971333b38e4ee0f2"));
+        assert(block.hashMerkleRoot == uint256("0x"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());

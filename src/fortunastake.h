@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The Denarius developers
+// Copyright (c) 2017-2018 The Haru developers
 // Copyright (c) 2009-2012 The Darkcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -129,7 +129,7 @@ public:
 };
 
 //
-// The Fortunastake Class. For managing the fortuna process. It contains the input of the 5000 D, signature to prove
+// The Fortunastake Class. For managing the fortuna process. It contains the input of the 5000 CAT, signature to prove
 // it's the one who own that ip address and code for calculating the payment election.
 //
 class CFortunaStake

@@ -174,7 +174,7 @@ vector<unsigned char> ParseHexO(const Object& o, string strKey)
 
 string CRPCTable::help(string strCommand) const
 {
-    //Ring Sigs - D e n a r i u s
+    //Ring Sigs - CAT e n a r i u s
     bool fAllAnon = strCommand == "anon" ? true : false;
     printf("fAllAnon %d %s\n", fAllAnon, strCommand.c_str());
 
@@ -241,12 +241,12 @@ Value stop(const Array& params, bool fHelp)
         throw runtime_error(
             "stop <detach>\n"
             "<detach> is true or false to detach the database or not for this stop only\n"
-            "Stop Denarius server (and possibly override the detachdb config value).");
+            "Stop Haru server (and possibly override the detachdb config value).");
     // Shutdown will take long enough that the response should get back
     if (params.size() > 0)
         bitdb.SetDetach(params[0].get_bool());
     StartShutdown();
-    return "Denarius server stopping, please wait a few minutes for full shutdown...";
+    return "Haru server stopping, please wait a few minutes for full shutdown...";
 }
 
 
@@ -347,7 +347,7 @@ static const CRPCCommand vRPCCommands[] =
     { "clearwallettransactions",&clearwallettransactions,false,  false},
     { "scanforalltxns",         &scanforalltxns,         false,  false},
 
-    // Ring Signatures - D e n a r i u s - v3.1.0
+    // Ring Signatures - CAT e n a r i u s - v3.1.0
     { "senddtoanon",          	&senddtoanon,          	 false,  false},
     { "sendanontoanon",         &sendanontoanon,         false,  false},
     { "sendanontod",          	&sendanontod,         	 false,  false},
@@ -888,7 +888,7 @@ void ThreadRPCServer2(void* parg)
               "The username and password MUST NOT be the same.\n"
               "If the file does not exist, create it with owner-readable-only file permissions.\n"
               "It is also recommended to set alertnotify so you are notified of problems;\n"
-              "for example: alertnotify=echo %%s | mail -s \"Denarius Alert\" admin@foo.com\n"),
+              "for example: alertnotify=echo %%s | mail -s \"Haru Alert\" admin@foo.com\n"),
                 strWhatAmI.c_str(),
                 GetConfigFile().string().c_str(),
                 EncodeBase58(&rand_pwd[0],&rand_pwd[0]+32).c_str()),

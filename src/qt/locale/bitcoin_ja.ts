@@ -459,7 +459,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
     <message>
         <location line="+10"/>
         <source>&amp;Debug window</source>
-        <translation>デバッグ ウインドウ (&amp;D)</translation>
+        <translation>デバッグ ウインドウ (&amp;CAT)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1246,7 +1246,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>&amp;Display</source>
-        <translation>表示 (&amp;D)</translation>
+        <translation>表示 (&amp;CAT)</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1276,7 +1276,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>処理の履歴にアドレスを表示 (&amp;D)</translation>
+        <translation>処理の履歴にアドレスを表示 (&amp;CAT)</translation>
     </message>
     <message>
         <location line="+7"/>

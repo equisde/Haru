@@ -29,7 +29,7 @@ script: |
   sed --posix 's/QMAKE_RCC\t\t= i586-mingw32msvc-rcc/QMAKE_RCC\t\t= rcc/' -i mkspecs/unsupported/win32-g++-cross/qmake.conf
   sed --posix 's/QMAKE_UIC\t\t= i586-mingw32msvc-uic/QMAKE_UIC\t\t= uic/' -i mkspecs/unsupported/win32-g++-cross/qmake.conf
   # ar adds timestamps to every object file included in the static library
-  # providing -D as ar argument is supposed to solve it, but doesn't work as qmake strips off the arguments and adds -M to pass a script...
+  # providing -CAT as ar argument is supposed to solve it, but doesn't work as qmake strips off the arguments and adds -M to pass a script...
   # which somehow cannot be combined with other flags.
   # use faketime only for ar, as it confuses make/qmake into hanging sometimes
   sed --posix "s|QMAKE_LIB\t\t= i586-mingw32msvc-ar -ru|QMAKE_LIB\t\t= $HOME/ar -Dr|" -i mkspecs/unsupported/win32-g++-cross/qmake.conf

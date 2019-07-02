@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Darkcoin developers
-// Copyright (c) 2017 The Denarius developers
+// Copyright (c) 2017 The Haru developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -69,8 +69,8 @@ Value fortunastake(const Array& params, bool fHelp)
 			"  list         - Print list of all known fortunastakes (see fortunastakelist for more info)\n"
 			"  list-conf    - Print fortunastake.conf in JSON format\n"
 			"  winners      - Print list of fortunastake winners\n"
-			//"  vote-many    - Vote on a Denarius initiative\n"
-			//"  vote         - Vote on a Denarius initiative\n"
+			//"  vote-many    - Vote on a Haru initiative\n"
+			//"  vote         - Vote on a Haru initiative\n"
             );
     if (strCommand == "stop")
     {
@@ -724,8 +724,8 @@ Value masternode(const Array& params, bool fHelp)
 			"  list         - Print list of all known fortunastakes (see fortunastakelist for more info)\n"
 			"  list-conf    - Print fortunastake.conf in JSON format\n"
 			"  winners      - Print list of fortunastake winners\n"
-			//"  vote-many    - Vote on a Denarius initiative\n"
-			//"  vote         - Vote on a Denarius initiative\n"
+			//"  vote-many    - Vote on a Haru initiative\n"
+			//"  vote         - Vote on a Haru initiative\n"
             );
     if (strCommand == "stop")
     {

@@ -173,7 +173,7 @@ void OverviewPage::parseNetworkResponse(QNetworkReply *finished )
         return;
     }
 
-if (what == BaseURL) // Denarius Price
+if (what == BaseURL) // Haru Price
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file
@@ -183,7 +183,7 @@ if (what == BaseURL) // Denarius Price
 
 	dollarg = denarius;
 }
-if (what == BaseURL2) // Denarius BTC Price
+if (what == BaseURL2) // Haru BTC Price
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file
@@ -193,7 +193,7 @@ if (what == BaseURL2) // Denarius BTC Price
 
 	bitcoing = dnrbtc;
 }
-if (what == BaseURL3) // Denarius News Feed
+if (what == BaseURL3) // Haru News Feed
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file

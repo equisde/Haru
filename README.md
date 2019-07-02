@@ -1,11 +1,11 @@
-# Denarius [D]
+# Haru [CAT]
 Tribus Algo PoW/PoS Hybrid Cryptocurrency
 
 ![logo](http://i.imgur.com/gIe5vnw.png)
 
 [![GitHub version](https://img.shields.io/github/release/carsenk/denarius.svg)](https://badge.fury.io/gh/carsenk%2Fdenarius)
 [![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/carsenk/denarius/blob/master/COPYING)
-[![Denarius downloads](https://img.shields.io/github/downloads/carsenk/denarius/total.svg?maxAge=2592000)](https://github.com/carsenk/denarius/releases)
+[![Haru downloads](https://img.shields.io/github/downloads/carsenk/denarius/total.svg?maxAge=2592000)](https://github.com/carsenk/denarius/releases)
 [![Join the chat at https://discord.gg/AcThv2y](https://img.shields.io/badge/Discord-Chat-blue.svg?logo=discord)](https://discord.gg/AcThv2y)
 
 [![HitCount](http://hits.dwyl.io/carsenk/denarius.svg)](http://hits.dwyl.io/carsenk/denarius)
@@ -21,22 +21,22 @@ Tribus Algo PoW/PoS Hybrid Cryptocurrency
 
 Intro
 ==========================
-Denarius is a true optional anonymous, untraceable, and secure hybrid cryptocurrency.
+Haru is a true optional anonymous, untraceable, and secure hybrid cryptocurrency.
 
-Ticker: D
+Ticker: CAT
 
-Denarius [D] is an anonymous, untraceable, energy efficient, Proof-of-Work (New Tribus Algorithm) and Proof-of-Stake cryptocurrency.
-10,000,000 D will be created in approx. about 3 years during the PoW phase. Denarius had a 10% Premine of 1,000,000 D for bounties, distribution, and marketing.
+Haru [CAT] is an anonymous, untraceable, energy efficient, Proof-of-Work (New Tribus Algorithm) and Proof-of-Stake cryptocurrency.
+10,000,000 CAT will be created in approx. about 3 years during the PoW phase. Haru had a 10% Premine of 1,000,000 CAT for bounties, distribution, and marketing.
 
 Specifications
 ==========================
-* Total number of coins: 10,000,000 D
+* Total number of coins: 10,000,000 CAT
 * Ideal block time: 30 seconds
 * Stake interest: 6% annual static inflation
 * Confirmations: 10 blocks
 * Maturity: 30 blocks (15 minutes)
 * Min stake age: 8 hours
-* Cost of Hybrid Fortuna Stakes: 5,000 D
+* Cost of Hybrid Fortuna Stakes: 5,000 CAT
 * Hybrid Fortuna Stake Reward: 33% of the current block reward
 * P2P Port: 33369, Testnet Port: 33368
 * RPC Port: 32369, Testnet RPC Port: 32368
@@ -62,8 +62,8 @@ LINKS
 ==========================
 * Official Website(https://denarius.io/)
 * Official Forums(https://denariustalk.org/)
-* Denarius Twitter(https://twitter.com/denariuscoin)
-* Denarius Discord Chat(https://discord.gg/C64HXbc)
+* Haru Twitter(https://twitter.com/denariuscoin)
+* Haru Discord Chat(https://discord.gg/C64HXbc)
 
 ASCII CAST TUTORIALS
 ==========================
@@ -73,17 +73,17 @@ ASCII CAST TUTORIALS
 
 denariusqtubuntu.sh by Buzzkillb
 ===========================
-Compile the latest Denarius QT (Graphical Wallet) Ubuntu 16.04 or Ubuntu 18.04.1
+Compile the latest Haru QT (Graphical Wallet) Ubuntu 16.04 or Ubuntu 18.04.1
 
 Credits to Buzzkillb for the creation of this bash script, original repository: https://github.com/buzzkillb/denarius-qt/
 
-Compiles Denarius QT Ubuntu 16.04 or 18.04, Grabs latest chaindata, and populates denarius.conf with addnodes or can update a previous compile to the latest master branch.  
+Compiles Haru QT Ubuntu 16.04 or 18.04, Grabs latest chaindata, and populates denarius.conf with addnodes or can update a previous compile to the latest master branch.  
 ```bash -c "$(wget -O - https://raw.githubusercontent.com/carsenk/denarius/master/denariusqtubuntu.sh)"```  
 
 To turn on nativetor in denarius.conf  
 ```nativetor=1```  
 
-![Denarius Installer Menu](https://raw.githubusercontent.com/buzzkillb/denarius-qt/master/compile-menu.PNG)  
+![Haru Installer Menu](https://raw.githubusercontent.com/buzzkillb/denarius-qt/master/compile-menu.PNG)  
 
 Development process
 ===========================
@@ -98,7 +98,7 @@ or are controversial.
 
 The master branch is regularly built and tested, but is not guaranteed
 to be completely stable. Tags are regularly created to indicate new
-stable release versions of Denarius.
+stable release versions of Haru.
 
 Feature branches are created when there are major new features being
 worked on by several people.

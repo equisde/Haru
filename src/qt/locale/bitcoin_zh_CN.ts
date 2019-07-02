@@ -107,7 +107,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+14"/>
         <source>&amp;Delete</source>
-        <translation>删除(&amp;D)</translation>
+        <translation>删除(&amp;CAT)</translation>
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+65"/>
@@ -459,7 +459,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+10"/>
         <source>&amp;Debug window</source>
-        <translation>调试窗口(&amp;D)</translation>
+        <translation>调试窗口(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1155,7 +1155,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>&amp;Detach databases at shutdown</source>
-        <translation>关机时断开区块和地址数据库连接(&amp;D)</translation>
+        <translation>关机时断开区块和地址数据库连接(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -1240,7 +1240,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>&amp;Display</source>
-        <translation>显示(&amp;D)</translation>
+        <translation>显示(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -1270,7 +1270,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>在交易清单中显示暗影币地址(&amp;D)</translation>
+        <translation>在交易清单中显示暗影币地址(&amp;CAT)</translation>
     </message>
     <message>
         <location line="+7"/>

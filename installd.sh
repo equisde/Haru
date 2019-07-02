@@ -1,6 +1,6 @@
 #!/bin/bash
 TEMP=/tmp/answer$$
-whiptail --title "Denarius [D]"  --menu  "Ubuntu 16.04/18.04 Daemon Node :" 20 0 0 1 "Compile denariusd Ubuntu 16.04" 2 "Update denariusd 16.04 to latest" 3 "Compile denariusd Ubuntu 18.04" 4 "Update denariusd 18.04 to latest" 2>$TEMP
+whiptail --title "Haru [CAT]"  --menu  "Ubuntu 16.04/18.04 Daemon Node :" 20 0 0 1 "Compile denariusd Ubuntu 16.04" 2 "Update denariusd 16.04 to latest" 3 "Compile denariusd Ubuntu 18.04" 4 "Update denariusd 18.04 to latest" 2>$TEMP
 choice=`cat $TEMP`
 case $choice in
 1) echo 1 "Compiling denariusd Ubuntu 16.04"
@@ -10,7 +10,7 @@ sudo apt-get update -y && sudo apt-get upgrade -y
 
 sudo apt-get --assume-yes install git unzip build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libevent-dev obfs4proxy
 
-echo "Installing Denarius Wallet"
+echo "Installing Haru Wallet"
 git clone https://github.com/carsenk/denarius
 cd denarius || exit
 git checkout master
@@ -37,7 +37,7 @@ echo "Back to Compiled denariusd Binary Folder"
 cd ~/denarius/src
                 ;;
 2) echo 2 "Update denariusd"
-echo "Updating Denarius Wallet"
+echo "Updating Haru Wallet"
 cd ~/denarius || exit
 git checkout master
 git pull
@@ -70,7 +70,7 @@ sudo ln -sf /usr/local/ssl/bin/openssl `which openssl`
 cd ~
 openssl version -v
 
-echo "Installing Denarius Wallet"
+echo "Installing Haru Wallet"
 git clone https://github.com/carsenk/denarius
 cd denarius
 git checkout master
@@ -97,7 +97,7 @@ echo "Back to Compiled denariusd Binary Folder"
 cd ~/denarius/src
                 ;;
 4) echo 4 "Update denariusd 18.04"
-echo "Updating Denarius Wallet"
+echo "Updating Haru Wallet"
 cd ~/denarius || exit
 git checkout master
 git pull

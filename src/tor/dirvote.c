@@ -862,7 +862,7 @@ static bw_weights_error_t
 networkstatus_check_weights(int64_t Wgg, int64_t Wgd, int64_t Wmg,
                             int64_t Wme, int64_t Wmd, int64_t Wee,
                             int64_t Wed, int64_t scale, int64_t G,
-                            int64_t M, int64_t E, int64_t D, int64_t T,
+                            int64_t M, int64_t E, int64_t CAT, int64_t T,
                             int64_t margin, int do_balance) {
   bw_weights_error_t berr = BW_WEIGHTS_NO_ERROR;
 
@@ -891,14 +891,14 @@ networkstatus_check_weights(int64_t Wgg, int64_t Wgd, int64_t Wmg,
   }
 
   if (do_balance) {
-    // Wgg*G + Wgd*D == Wee*E + Wed*D, already scaled
-    if (!CHECK_EQ(Wgg*G + Wgd*D, Wee*E + Wed*D, (margin*T)/3)) {
+    // Wgg*G + Wgd*CAT == Wee*E + Wed*CAT, already scaled
+    if (!CHECK_EQ(Wgg*G + Wgd*CAT, Wee*E + Wed*CAT, (margin*T)/3)) {
       berr = BW_WEIGHTS_BALANCE_EG_ERROR;
       goto out;
     }
 
-    // Wgg*G + Wgd*D == M*scale + Wmd*D + Wme*E + Wmg*G, already scaled
-    if (!CHECK_EQ(Wgg*G + Wgd*D, M*scale + Wmd*D + Wme*E + Wmg*G,
+    // Wgg*G + Wgd*CAT == M*scale + Wmd*CAT + Wme*E + Wmg*G, already scaled
+    if (!CHECK_EQ(Wgg*G + Wgd*CAT, M*scale + Wmd*CAT + Wme*E + Wmg*G,
                 (margin*T)/3)) {
       berr = BW_WEIGHTS_BALANCE_MID_ERROR;
       goto out;
@@ -909,12 +909,12 @@ networkstatus_check_weights(int64_t Wgg, int64_t Wgd, int64_t Wmg,
   if (berr) {
     log_info(LD_DIR,
              "Bw weight mismatch %d. G="I64_FORMAT" M="I64_FORMAT
-             " E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT
+             " E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT
              " Wmd=%d Wme=%d Wmg=%d Wed=%d Wee=%d"
              " Wgd=%d Wgg=%d Wme=%d Wmg=%d",
              berr,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
              (int)Wmd, (int)Wme, (int)Wmg, (int)Wed, (int)Wee,
              (int)Wgd, (int)Wgg, (int)Wme, (int)Wmg);
   }
@@ -929,7 +929,7 @@ networkstatus_check_weights(int64_t Wgg, int64_t Wgd, int64_t Wmg,
  */
 int
 networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
-                                     int64_t M, int64_t E, int64_t D,
+                                     int64_t M, int64_t E, int64_t CAT,
                                      int64_t T, int64_t weight_scale)
 {
   bw_weights_error_t berr = 0;
@@ -938,12 +938,12 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
   int64_t Wed = -1, Wee = -1;
   const char *casename;
 
-  if (G <= 0 || M <= 0 || E <= 0 || D <= 0) {
+  if (G <= 0 || M <= 0 || E <= 0 || CAT <= 0) {
     log_warn(LD_DIR, "Consensus with empty bandwidth: "
                      "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT
-                     " D="I64_FORMAT" T="I64_FORMAT,
+                     " CAT="I64_FORMAT" T="I64_FORMAT,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T));
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T));
     return 0;
   }
 
@@ -952,11 +952,11 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
    *
    * 1. Neither are scarce
    * 2. Both Guard and Exit are scarce
-   *    a. R+D <= S
-   *    b. R+D > S
+   *    a. R+CAT <= S
+   *    b. R+CAT > S
    * 3. One of Guard or Exit is scarce
-   *    a. S+D < T/3
-   *    b. S+D >= T/3
+   *    a. S+CAT < T/3
+   *    b. S+CAT >= T/3
    */
   if (3*E >= T && 3*G >= T) { // E >= T/3 && G >= T/3
     /* Case 1: Neither are scarce.  */
@@ -970,17 +970,17 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
     Wgg = weight_scale - Wmg;
 
     berr = networkstatus_check_weights(Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed,
-                                       weight_scale, G, M, E, D, T, 10, 1);
+                                       weight_scale, G, M, E, CAT, T, 10, 1);
 
     if (berr) {
       log_warn(LD_DIR,
              "Bw Weights error %d for %s v10. G="I64_FORMAT" M="I64_FORMAT
-             " E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT
+             " E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT
              " Wmd=%d Wme=%d Wmg=%d Wed=%d Wee=%d"
              " Wgd=%d Wgg=%d Wme=%d Wmg=%d weight_scale=%d",
              berr, casename,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
              (int)Wmd, (int)Wme, (int)Wmg, (int)Wed, (int)Wee,
              (int)Wgd, (int)Wgg, (int)Wme, (int)Wmg, (int)weight_scale);
       return 0;
@@ -990,10 +990,10 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
     int64_t S = MAX(E, G);
     /*
      * Case 2: Both Guards and Exits are scarce
-     * Balance D between E and G, depending upon
-     * D capacity and scarcity.
+     * Balance CAT between E and G, depending upon
+     * CAT capacity and scarcity.
      */
-    if (R+D < S) { // Subcase a
+    if (R+CAT < S) { // Subcase a
       Wgg = weight_scale;
       Wee = weight_scale;
       Wmg = 0;
@@ -1008,10 +1008,10 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
         Wed = 0;
         Wgd = weight_scale;
       }
-    } else { // Subcase b: R+D >= S
+    } else { // Subcase b: R+CAT >= S
       casename = "Case 2b1 (Wgg=weight_scale, Wmd=Wgd)";
       Wee = (weight_scale*(E - G + M))/E;
-      Wed = (weight_scale*(D - 2*E + 4*G - 2*M))/(3*D);
+      Wed = (weight_scale*(CAT - 2*E + 4*G - 2*M))/(3*CAT);
       Wme = (weight_scale*(G-M))/E;
       Wmg = 0;
       Wgg = weight_scale;
@@ -1019,14 +1019,14 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
       Wgd = (weight_scale - Wed)/2;
 
       berr = networkstatus_check_weights(Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed,
-                                       weight_scale, G, M, E, D, T, 10, 1);
+                                       weight_scale, G, M, E, CAT, T, 10, 1);
 
       if (berr) {
         casename = "Case 2b2 (Wgg=weight_scale, Wee=weight_scale)";
         Wgg = weight_scale;
         Wee = weight_scale;
-        Wed = (weight_scale*(D - 2*E + G + M))/(3*D);
-        Wmd = (weight_scale*(D - 2*M + G + E))/(3*D);
+        Wed = (weight_scale*(CAT - 2*E + G + M))/(3*CAT);
+        Wmd = (weight_scale*(CAT - 2*M + G + E))/(3*CAT);
         Wme = 0;
         Wmg = 0;
 
@@ -1040,18 +1040,18 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
         }
         Wgd = weight_scale - Wed - Wmd;
         berr = networkstatus_check_weights(Wgg, Wgd, Wmg, Wme, Wmd, Wee,
-                  Wed, weight_scale, G, M, E, D, T, 10, 1);
+                  Wed, weight_scale, G, M, E, CAT, T, 10, 1);
       }
       if (berr != BW_WEIGHTS_NO_ERROR &&
               berr != BW_WEIGHTS_BALANCE_MID_ERROR) {
         log_warn(LD_DIR,
              "Bw Weights error %d for %s v10. G="I64_FORMAT" M="I64_FORMAT
-             " E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT
+             " E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT
              " Wmd=%d Wme=%d Wmg=%d Wed=%d Wee=%d"
              " Wgd=%d Wgg=%d Wme=%d Wmg=%d weight_scale=%d",
              berr, casename,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
              (int)Wmd, (int)Wme, (int)Wmg, (int)Wed, (int)Wee,
              (int)Wgd, (int)Wgg, (int)Wme, (int)Wmg, (int)weight_scale);
         return 0;
@@ -1063,12 +1063,12 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
     if (!(3*E < T || 3*G < T) || !(3*G >= T || 3*E >= T)) {
       log_warn(LD_BUG,
            "Bw-Weights Case 3 v10 but with G="I64_FORMAT" M="
-           I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT,
+           I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT,
                I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-               I64_PRINTF_ARG(D), I64_PRINTF_ARG(T));
+               I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T));
     }
 
-    if (3*(S+D) < T) { // Subcase a: S+D < T/3
+    if (3*(S+CAT) < T) { // Subcase a: S+CAT < T/3
       if (G < E) {
         casename = "Case 3a (G scarce)";
         Wgg = Wgd = weight_scale;
@@ -1088,12 +1088,12 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
         else Wmg = (weight_scale*(G-M))/(2*G);
         Wgg = weight_scale-Wmg;
       }
-    } else { // Subcase b: S+D >= T/3
-      // D != 0 because S+D >= T/3
+    } else { // Subcase b: S+CAT >= T/3
+      // CAT != 0 because S+CAT >= T/3
       if (G < E) {
         casename = "Case 3bg (G scarce, Wgg=weight_scale, Wmd == Wed)";
         Wgg = weight_scale;
-        Wgd = (weight_scale*(D - 2*G + E + M))/(3*D);
+        Wgd = (weight_scale*(CAT - 2*G + E + M))/(3*CAT);
         Wmg = 0;
         Wee = (weight_scale*(E+M))/(2*E);
         Wme = weight_scale - Wee;
@@ -1101,11 +1101,11 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
         Wed = (weight_scale - Wgd)/2;
 
         berr = networkstatus_check_weights(Wgg, Wgd, Wmg, Wme, Wmd, Wee,
-                    Wed, weight_scale, G, M, E, D, T, 10, 1);
+                    Wed, weight_scale, G, M, E, CAT, T, 10, 1);
       } else { // G >= E
         casename = "Case 3be (E scarce, Wee=weight_scale, Wmd == Wgd)";
         Wee = weight_scale;
-        Wed = (weight_scale*(D - 2*E + G + M))/(3*D);
+        Wed = (weight_scale*(CAT - 2*E + G + M))/(3*CAT);
         Wme = 0;
         Wgg = (weight_scale*(G+M))/(2*G);
         Wmg = weight_scale - Wgg;
@@ -1113,17 +1113,17 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
         Wgd = (weight_scale - Wed)/2;
 
         berr = networkstatus_check_weights(Wgg, Wgd, Wmg, Wme, Wmd, Wee,
-                      Wed, weight_scale, G, M, E, D, T, 10, 1);
+                      Wed, weight_scale, G, M, E, CAT, T, 10, 1);
       }
       if (berr) {
         log_warn(LD_DIR,
              "Bw Weights error %d for %s v10. G="I64_FORMAT" M="I64_FORMAT
-             " E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT
+             " E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT
              " Wmd=%d Wme=%d Wmg=%d Wed=%d Wee=%d"
              " Wgd=%d Wgg=%d Wme=%d Wmg=%d weight_scale=%d",
              berr, casename,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
              (int)Wmd, (int)Wme, (int)Wmg, (int)Wed, (int)Wee,
              (int)Wgd, (int)Wgg, (int)Wme, (int)Wmg, (int)weight_scale);
         return 0;
@@ -1157,20 +1157,20 @@ networkstatus_compute_bw_weights_v10(smartlist_t *chunks, int64_t G,
      (int)weight_scale, (int)Wmd, (int)Wme, (int)Wmg, (int)weight_scale);
 
   log_notice(LD_CIRC, "Computed bandwidth weights for %s with v10: "
-             "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+             "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
              " T="I64_FORMAT,
              casename,
              I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-             I64_PRINTF_ARG(D), I64_PRINTF_ARG(T));
+             I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T));
   return 1;
 }
 
-/** Update total bandwidth weights (G/M/E/D/T) with the bandwidth of
+/** Update total bandwidth weights (G/M/E/CAT/T) with the bandwidth of
  *  the router in <b>rs</b>. */
 static void
 update_total_bandwidth_weights(const routerstatus_t *rs,
                                int is_exit, int is_guard,
-                               int64_t *G, int64_t *M, int64_t *E, int64_t *D,
+                               int64_t *G, int64_t *M, int64_t *E, int64_t *CAT,
                                int64_t *T)
 {
   int default_bandwidth = rs->bandwidth_kb;
@@ -1189,7 +1189,7 @@ update_total_bandwidth_weights(const routerstatus_t *rs,
    *    Similarly, when calculating the bandwidth-weights line as in
    *    section 3.8.3 of dir-spec.txt, directory authorities should treat N
    *    as if fraction F of its bandwidth has the guard flag and (1-F) does
-   *    not.  So when computing the totals G,M,E,D, each relay N with guard
+   *    not.  So when computing the totals G,M,E,CAT, each relay N with guard
    *    visibility fraction F and bandwidth B should be added as follows:
    *
    *    G' = G + F*B, if N does not have the exit flag
@@ -1197,7 +1197,7 @@ update_total_bandwidth_weights(const routerstatus_t *rs,
    *
    *    or
    *
-   *    D' = D + F*B, if N has the exit flag
+   *    CAT' = CAT + F*B, if N has the exit flag
    *    E' = E + (1-F)*B, if N has the exit flag
    *
    * In this block of code, we prepare the bandwidth values by setting
@@ -1225,7 +1225,7 @@ update_total_bandwidth_weights(const routerstatus_t *rs,
   *T += default_bandwidth;
   if (is_exit && is_guard) {
 
-    *D += default_bandwidth;
+    *CAT += default_bandwidth;
     if (rs->has_guardfraction) {
       *E += guardfraction_bandwidth;
     }
@@ -1349,7 +1349,7 @@ networkstatus_compute_consensus(smartlist_t *votes,
   smartlist_t *flags;
   const char *flavor_name;
   uint32_t max_unmeasured_bw_kb = DEFAULT_MAX_UNMEASURED_BW_KB;
-  int64_t G, M, E, D, T; /* For bandwidth weights */
+  int64_t G, M, E, CAT, T; /* For bandwidth weights */
   const routerstatus_format_type_t rs_format =
     flavor == FLAV_NS ? NS_V3_CONSENSUS : NS_V3_CONSENSUS_MICRODESC;
   char *params = NULL;
@@ -1384,11 +1384,11 @@ networkstatus_compute_consensus(smartlist_t *votes,
   if (consensus_method >= MIN_METHOD_FOR_INIT_BW_WEIGHTS_ONE) {
     /* It's smarter to initialize these weights to 1, so that later on,
      * we can't accidentally divide by zero. */
-    G = M = E = D = 1;
+    G = M = E = CAT = 1;
     T = 4;
   } else {
     /* ...but originally, they were set to zero. */
-    G = M = E = D = T = 0;
+    G = M = E = CAT = T = 0;
   }
 
   /* Compute medians of time-related things, and figure out how many
@@ -2003,7 +2003,7 @@ networkstatus_compute_consensus(smartlist_t *votes,
       {
         update_total_bandwidth_weights(&rs_out,
                                        is_exit, is_guard,
-                                       &G, &M, &E, &D, &T);
+                                       &G, &M, &E, &CAT, &T);
       }
 
       /* Ok, we already picked a descriptor digest we want to list
@@ -2207,7 +2207,7 @@ networkstatus_compute_consensus(smartlist_t *votes,
       }
     }
 
-    added_weights = networkstatus_compute_bw_weights_v10(chunks, G, M, E, D,
+    added_weights = networkstatus_compute_bw_weights_v10(chunks, G, M, E, CAT,
                                                          T, weight_scale);
   }
 

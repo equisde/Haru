@@ -238,7 +238,7 @@ OPTIMIZE_OUTPUT_VHDL   = NO
 # Doxygen has a built-in mapping, but you can override or extend it using this 
 # tag. The format is ext=language, where ext is a file extension, and language 
 # is one of the parsers supported by doxygen: IDL, Java, Javascript, CSharp, C, 
-# C++, D, PHP, Objective-C, Python, Fortran, VHDL, C, C++. For instance to make 
+# C++, CAT, PHP, Objective-C, Python, Fortran, VHDL, C, C++. For instance to make 
 # doxygen treat .inc files as Fortran files (default is PHP), and .f files as C 
 # (default is Fortran), use: inc=Fortran f=C. Note that for custom extensions 
 # you also need to set FILE_PATTERNS otherwise the files are not read by doxygen.
@@ -1478,7 +1478,7 @@ INCLUDE_PATH           =
 INCLUDE_FILE_PATTERNS  = 
 
 # The PREDEFINED tag can be used to specify one or more macro names that 
-# are defined before the preprocessor is started (similar to the -D option of 
+# are defined before the preprocessor is started (similar to the -CAT option of 
 # gcc). The argument of the tag is a list of macros of the form: name 
 # or name=definition (no spaces). If the definition and the = are 
 # omitted =1 is assumed. To prevent a macro definition from being 

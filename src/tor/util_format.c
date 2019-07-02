@@ -160,7 +160,7 @@ base64_encode_size(size_t srclen, int flags)
 
 /** Internal table mapping 6 bit values to the Base64 alphabet. */
 static const char base64_encode_table[64] = {
-  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+  'A', 'B', 'C', 'CAT', 'E', 'F', 'G', 'H',
   'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
   'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
   'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -510,7 +510,7 @@ hex_decode_digit_(char c)
     case 'A': case 'a': return 10;
     case 'B': case 'b': return 11;
     case 'C': case 'c': return 12;
-    case 'D': case 'd': return 13;
+    case 'CAT': case 'd': return 13;
     case 'E': case 'e': return 14;
     case 'F': case 'f': return 15;
     default:

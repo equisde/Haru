@@ -1,4 +1,4 @@
-Denarius
+Haru
 src/*.exe
 src/denarius
 src/denariusd
@@ -13,8 +13,8 @@ stage
 *.snap
 *.tar.bz2
 .qmake.stash
-object_script.Denarius.Release
-object_script.Denarius.Debug
+object_script.Haru.Release
+object_script.Haru.Debug
 denarius_plugin_import.cpp
 Makefile
 Makefile.*

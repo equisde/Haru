@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2017-2018 The Denarius developers
+// Copyright (c) 2017-2018 The Haru developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -123,7 +123,7 @@ void Shutdown(void* parg)
         */
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
-        printf("Denarius exited\n\n");
+        printf("Haru exited\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
@@ -177,7 +177,7 @@ bool AppInit(int argc, char* argv[])
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
             // First part of help message is specific to bitcoind / RPC client
-            std::string strUsage = _("Denarius version") + " " + FormatFullVersion() + "\n\n" +
+            std::string strUsage = _("Haru version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
                   "  denariusd [options]                     " + "\n" +
                   "  denariusd [options] <command> [params]  " + _("Send command to -server or denariusd") + "\n" +
@@ -259,13 +259,13 @@ int main(int argc, char* argv[])
 
 bool static InitError(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("Denarius"), CClientUIInterface::OK | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("Haru"), CClientUIInterface::OK | CClientUIInterface::MODAL);
     return false;
 }
 
 bool static InitWarning(const std::string &str)
 {
-    uiInterface.ThreadSafeMessageBox(str, _("Denarius"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    uiInterface.ThreadSafeMessageBox(str, _("Haru"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
     return true;
 }
 
@@ -639,7 +639,7 @@ bool AppInit2()
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
     // Sanity check
     if (!InitSanityCheck())
-        return InitError(_("Initialization sanity check failed. Denarius is shutting down."));
+        return InitError(_("Initialization sanity check failed. Haru is shutting down."));
 
     std::string strDataDir = GetDataDir().string();
     std::string strWalletFileName = GetArg("-wallet", "wallet.dat");
@@ -656,12 +656,12 @@ bool AppInit2()
 
     static boost::interprocess::file_lock lock(pathLockFile.string().c_str());
     if (!lock.try_lock())
-        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Denarius is probably already running."), strDataDir.c_str()));
+        return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  Haru is probably already running."), strDataDir.c_str()));
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Denarius version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
+    printf("Haru version %s (%s)\n", FormatFullVersion().c_str(), CLIENT_DATE.c_str());
     printf("Using OpenSSL version %s\n", SSLeay_version(SSLEAY_VERSION));
     if (!fLogTimestamps)
         printf("Startup time: %s\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
@@ -681,11 +681,11 @@ bool AppInit2()
     CFortunaStake::minProtoVersion = GetArg("-fortunastakeminprotocol", MIN_MN_PROTO_VERSION);
 
     if (fDaemon)
-        fprintf(stdout, "Denarius server starting\n");
+        fprintf(stdout, "Haru server starting\n");
 
     int64_t nStart;
 
-    // Anonymous Ring Signatures ~ D e n a r i u s - v3.0.0.0
+    // Anonymous Ring Signatures ~ CAT e n a r i u s - v3.0.0.0
     if (initialiseRingSigs() != 0)
         return InitError("initialiseRingSigs() failed.");
 
@@ -718,7 +718,7 @@ bool AppInit2()
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
                                      " your balance or transactions are incorrect you should"
                                      " restore from a backup."), strDataDir.c_str());
-            uiInterface.ThreadSafeMessageBox(msg, _("Denarius"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Haru"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         };
 
         if (r == CDBEnv::RECOVER_FAIL)
@@ -864,7 +864,7 @@ bool AppInit2()
     };
 	
 #ifdef USE_NATIVETOR
-    // Native Tor Integration Continued - D e n a r i u s v3
+    // Native Tor Integration Continued - CAT e n a r i u s v3
     if(fNativeTor)
     {
         CService addrBind;
@@ -1005,15 +1005,15 @@ bool AppInit2()
         {
             string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
                          " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("Denarius"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+            uiInterface.ThreadSafeMessageBox(msg, _("Haru"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
         }
         else
         if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Denarius") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Haru") << "\n";
         else
         if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart Denarius to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Haru to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }
@@ -1135,7 +1135,7 @@ bool AppInit2()
 
     if (!CheckDiskSpace())
     {
-        return InitError(_("Error: not enough disk space to start Denarius."));
+        return InitError(_("Error: not enough disk space to start Haru."));
     }
 
     if (!strErrors.str().empty())

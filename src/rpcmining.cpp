@@ -121,10 +121,10 @@ Value getworkex(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "Denarius is not connected!");
+        throw JSONRPCError(-9, "Haru is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Denarius is downloading blocks...");
+        throw JSONRPCError(-10, "Haru is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -255,10 +255,10 @@ Value getwork(const Array& params, bool fHelp)
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Denarius is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Haru is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Denarius is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Haru is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -405,10 +405,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Denarius is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Haru is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Denarius is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Haru is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -557,7 +557,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
                     if (fDebug) printf("CreateNewBlock(): Failed to detect fortunastake to pay, burning coins.");
                     std::string burnAddress;
                     if (fTestNet) std::string burnAddress = "8TestXXXXXXXXXXXXXXXXXXXXXXXXbCvpq";
-                    else std::string burnAddress = "DNRXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw";
+                    else std::string burnAddress = "CATXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw";
                     CBitcoinAddress burnAddr;
                     burnAddr.SetString(burnAddress);
                     payee = GetScriptForDestination(burnAddr.Get());
@@ -571,7 +571,7 @@ Value getblocktemplate(const Array& params, bool fHelp)
 		result.push_back(Pair("payee", address2.ToString().c_str()));
 		result.push_back(Pair("payee_amount", (int64_t)GetFortunastakePayment(pindexPrev->nHeight+1, pblock->vtx[0].GetValueOut())));
 	  } else {
-        result.push_back(Pair("payee", "DNRXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw"));
+        result.push_back(Pair("payee", "CATXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw"));
 	result.push_back(Pair("payee_amount", (int64_t)GetFortunastakePayment(pindexPrev->nHeight+1, pblock->vtx[0].GetValueOut())));
     }
 

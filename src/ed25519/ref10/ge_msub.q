@@ -30,17 +30,17 @@ fe YmX1
 fe A
 fe B
 fe C
-fe D
+fe CAT
 
 YpX1 = Y1+X1
 YmX1 = Y1-X1
 A = YpX1*ymx2
 B = YmX1*ypx2
 C = xy2d2*T1
-D = 2*Z1
+CAT = 2*Z1
 X3 = A-B
 Y3 = A+B
-Z3 = D-C
-T3 = D+C
+Z3 = CAT-C
+T3 = CAT+C
 
 return

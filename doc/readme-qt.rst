@@ -1,4 +1,4 @@
-Denarius-qt: Qt5 GUI for Denarius
+Haru-qt: Qt5 GUI for Haru
 ===============================
 
 Build instructions
@@ -72,17 +72,17 @@ Mac OS X
 Build configuration options
 ============================
 
-Build with Native Tor Support in Denarius
+Build with Native Tor Support in Haru
 -----------------------
 
 libevent-dev and obfs4proxy are required to be installed if you are building with the Native Tor Library
-The native Tor C Library is located in src/tor and is compiled into Denarius by default to allow the nativetor=1 flag in your denarius.conf
-Use the USE_NATIVETOR=- flag to disable building Denarius with the Tor library
+The native Tor C Library is located in src/tor and is compiled into Haru by default to allow the nativetor=1 flag in your denarius.conf
+Use the USE_NATIVETOR=- flag to disable building Haru with the Tor library
 
 +--------------+--------------------------------------------------------------------------+
 | USE_NATIVETOR=- | No Native Tor Support - libevent-dev and obfs4proxy are not required  |
 +--------------+--------------------------------------------------------------------------+
-| USE_NATIVETOR=1 | Native Tor Library enabled to be compiled with Denarius (default)     |
+| USE_NATIVETOR=1 | Native Tor Library enabled to be compiled with Haru (default)     |
 +--------------+--------------------------------------------------------------------------+
 
 
@@ -137,9 +137,9 @@ flag to qmake to control this:
 Berkely DB version warning
 ==========================
 
-A warning for people using the *static binary* version of Denarius on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
+A warning for people using the *static binary* version of Haru on a Linux/UNIX-ish system (tl;dr: **Berkely DB databases are not forward compatible**).
 
-The static binary version of Denarius is linked against libdb 5.0 (see also `this Debian issue`_).
+The static binary version of Haru is linked against libdb 5.0 (see also `this Debian issue`_).
 
 Now the nasty thing is that databases from 5.X are not compatible with 4.X.
 

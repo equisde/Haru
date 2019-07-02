@@ -38,7 +38,7 @@ QString BitcoinUnits::name(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("D");
+    case BTC: return QString("CAT");
     case dBTC: return QString("BTC");
     case USD: return QString("USD");
     case mBTC: return QString("mD");
@@ -51,11 +51,11 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("Denarius");
+    case BTC: return QString("Haru");
     case dBTC: return QString("Bitcoin");
     case USD: return QString("USD");
-    case mBTC: return QString("Milli-Denarius (1 / 1,000)");
-    case uBTC: return QString("Micro-Denarius (1 / 1,000,000)");
+    case mBTC: return QString("Milli-Haru (1 / 1,000)");
+    case uBTC: return QString("Micro-Haru (1 / 1,000,000)");
     default: return QString("???");
     }
 }

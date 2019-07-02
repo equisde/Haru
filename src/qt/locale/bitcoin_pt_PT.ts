@@ -1468,7 +1468,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+23"/>
         <location filename="../rpcconsole.cpp" line="+348"/>
         <source>N/A</source>
-        <translation>N/D</translation>
+        <translation>N/CAT</translation>
     </message>
     <message>
         <location line="-217"/>

@@ -85,7 +85,7 @@ void MarketBrowser::parseNetworkResponse(QNetworkReply *finished )
         return;
     }
 	
-if (what == kBaseUrl) // Denarius Price
+if (what == kBaseUrl) // Haru Price
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file
@@ -125,7 +125,7 @@ if (what == kBaseUrl1) // Bitcoin Price
     bitcoinp = bitcoin;
 }
 
-if (what == kBaseUrl2) // Denarius Market Cap
+if (what == kBaseUrl2) // Haru Market Cap
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file
@@ -146,7 +146,7 @@ if (what == kBaseUrl2) // Denarius Market Cap
 	dnrmarket = dnrmc;
 }
 
-if (what == kBaseUrl3) // Denarius BTC Price
+if (what == kBaseUrl3) // Haru BTC Price
 {
 
     // QNetworkReply is a QIODevice. So we read from it just like it was a file

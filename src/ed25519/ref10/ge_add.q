@@ -32,7 +32,7 @@ fe YmX1
 fe A
 fe B
 fe C
-fe D
+fe CAT
 
 YpX1 = Y1+X1
 YmX1 = Y1-X1
@@ -40,10 +40,10 @@ A = YpX1*YpX2
 B = YmX1*YmX2
 C = T2d2*T1
 ZZ = Z1*Z2
-D = 2*ZZ
+CAT = 2*ZZ
 X3 = A-B
 Y3 = A+B
-Z3 = D+C
-T3 = D-C
+Z3 = CAT+C
+T3 = CAT-C
 
 return

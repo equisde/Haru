@@ -1484,7 +1484,7 @@ Cela implique que des frais à hauteur d&apos;au moins %2 seront nécessaires.</
         <location line="+23"/>
         <location filename="../rpcconsole.cpp" line="+348"/>
         <source>N/A</source>
-        <translation>N.D.</translation>
+        <translation>N.CAT.</translation>
     </message>
     <message>
         <location line="-217"/>

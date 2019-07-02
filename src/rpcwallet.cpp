@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2017-2018 Denarius developers
+// Copyright (c) 2017-2018 Haru developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -176,7 +176,7 @@ Value getnewaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewaddress [account]\n"
-            "Returns a new Denarius address for receiving payments.  "
+            "Returns a new Haru address for receiving payments.  "
             "If [account] is specified, it is added to the address book "
             "so payments received with the address will be credited to [account].");
 
@@ -243,7 +243,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress <account>\n"
-            "Returns the current Denarius address for receiving payments to this account.");
+            "Returns the current Haru address for receiving payments to this account.");
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
@@ -266,7 +266,7 @@ Value setaccount(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Denarius address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Haru address");
 
 
     string strAccount;
@@ -296,7 +296,7 @@ Value getaccount(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Denarius address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Haru address");
 
     string strAccount;
     map<CTxDestination, string>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
@@ -340,7 +340,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Denarius address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Haru address");
 
     // Amount
     int64_t nAmount = AmountFromValue(params[1]);
@@ -488,7 +488,7 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     CScript scriptPubKey;
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Denarius address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Haru address");
     scriptPubKey.SetDestination(address.Get());
     if (!IsMine(*pwalletMain,scriptPubKey))
         return (double)0.0;
@@ -598,7 +598,7 @@ int64_t GetAccountBalance(const string& strAccount, int nMinDepth, const isminef
     return GetAccountBalance(walletdb, strAccount, nMinDepth, filter);
 }
 
-//D e n a r i u s v2.5.2 fetchbalance RPC Command
+//CAT e n a r i u s v2.5.2 fetchbalance RPC Command
 Value fetchbalance(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
@@ -757,7 +757,7 @@ Value sendfrom(const Array& params, bool fHelp)
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Denarius address");
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Haru address");
     int64_t nAmount = AmountFromValue(params[2]);
 
     int nMinDepth = 1;
@@ -820,7 +820,7 @@ Value sendmany(const Array& params, bool fHelp)
     {
         CBitcoinAddress address(s.name_);
         if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Denarius address: ")+s.name_);
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Haru address: ")+s.name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+s.name_);
@@ -866,7 +866,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     {
         string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
             "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-            "each key is a Denarius address or hex-encoded public key\n"
+            "each key is a Haru address or hex-encoded public key\n"
             "If [account] is specified, assign address to [account].";
         throw runtime_error(msg);
     }
@@ -1215,7 +1215,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
 					entry.push_back(Pair("amount", ValueFromAmount(r.amount)));
 					entry.push_back(Pair("reward", ValueFromAmount(-nFee)));
                     stop = true;
-				//FortunaStake PoS Reward - D E N A R I U S
+				//FortunaStake PoS Reward - CAT E N A R I U S
                 } else if (wtx.IsCoinStake() && nFee == 0) {
 					entry.push_back(Pair("reward", ValueFromAmount(r.amount)));
 					stop = true;
@@ -1745,7 +1745,7 @@ Value encryptwallet(const Array& params, bool fHelp)
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys. So:
     StartShutdown();
-    return "wallet encrypted; Denarius server stopping, restart to run with encrypted wallet.  The keypool has been flushed, you need to make a new backup.";
+    return "wallet encrypted; Haru server stopping, restart to run with encrypted wallet.  The keypool has been flushed, you need to make a new backup.";
 }
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
@@ -1996,7 +1996,7 @@ Value getnewstealthaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewstealthaddress [label]\n"
-            "Returns a new Denarius stealth address for receiving payments anonymously.  ");
+            "Returns a new Haru stealth address for receiving payments anonymously.  ");
 
     if (pwalletMain->IsLocked())
         throw runtime_error("Failed: Wallet must be unlocked.");
@@ -2365,7 +2365,7 @@ Value senddtoanon(const Array& params, bool fHelp)
     CStealthAddress sxAddr;
 
     if (!sxAddr.SetEncoded(sEncoded))
-        throw std::runtime_error("Invalid Denarius stealth address.");
+        throw std::runtime_error("Invalid Haru stealth address.");
 
     CWalletTx wtx;
     if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
@@ -2419,7 +2419,7 @@ Value sendanontoanon(const Array& params, bool fHelp)
     CStealthAddress sxAddr;
 
     if (!sxAddr.SetEncoded(sEncoded))
-        throw std::runtime_error("Invalid Denarius stealth address.");
+        throw std::runtime_error("Invalid Haru stealth address.");
 
     CWalletTx wtx;
     if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
@@ -2475,7 +2475,7 @@ Value sendanontod(const Array& params, bool fHelp)
     CStealthAddress sxAddr;
 
     if (!sxAddr.SetEncoded(sEncoded))
-        throw std::runtime_error("Invalid Denarius stealth address.");
+        throw std::runtime_error("Invalid Haru stealth address.");
 
     CWalletTx wtx;
     if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
@@ -2887,7 +2887,7 @@ Value txnreport(const Array& params, bool fHelp)
                     if (txin.prevout.IsNull()) // coinbase
                         continue;
 
-                    entry.push_back("D in");
+                    entry.push_back("CAT in");
                     entry.push_back(fCoinBase ? "coinbase" : fCoinStake ? "coinstake" : "");
 
                     if (pwalletMain->IsMine(txin))
@@ -2981,7 +2981,7 @@ Value txnreport(const Array& params, bool fHelp)
                     };
                 } else
                 {
-                    entry.push_back("D out");
+                    entry.push_back("CAT out");
                     entry.push_back(fCoinBase ? "coinbase" : fCoinStake ? "coinstake" : "");
 
 

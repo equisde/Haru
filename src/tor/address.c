@@ -391,7 +391,7 @@ tor_addr_is_internal_(const tor_addr_t *addr, int for_listening,
 
     if (((iph6[0] & 0xfe000000) == 0xfc000000) || /* fc00/7  - RFC4193 */
         ((iph6[0] & 0xffc00000) == 0xfe800000) || /* fe80/10 - RFC4291 */
-        ((iph6[0] & 0xffc00000) == 0xfec00000))   /* fec0/10 D- RFC3879 */
+        ((iph6[0] & 0xffc00000) == 0xfec00000))   /* fec0/10 CAT- RFC3879 */
       return 1;
 
     if (!iph6[0] && !iph6[1] && !iph6[2] &&

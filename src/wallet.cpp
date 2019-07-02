@@ -272,7 +272,7 @@ bool CWallet::Unlock(const SecureString& strWalletPassphrase)
         }
 
         UnlockStealthAddresses(vMasterKey);
-		ProcessLockedAnonOutputs(); //Process Locked Anon Outputs when unlocked, D E N A R I U S - v3.1
+		ProcessLockedAnonOutputs(); //Process Locked Anon Outputs when unlocked, CAT E N A R I U S - v3.1
         SecureMsgWalletUnlocked();
         return true;
     }
@@ -1752,7 +1752,7 @@ void CWallet::AvailableCoinsMN(vector<COutput>& vCoins, bool fOnlyConfirmed, boo
                     found = true;
                     if (IsCollateralAmount(pcoin->vout[i].nValue)) continue; // do not use collateral amounts
                     found = !IsDenominatedAmount(pcoin->vout[i].nValue);
-                    if(found && coin_type == ONLY_NONDENOMINATED_NOTMN) found = (pcoin->vout[i].nValue != GetMNCollateral()*COIN); // do not use MN funds 5,000 D
+                    if(found && coin_type == ONLY_NONDENOMINATED_NOTMN) found = (pcoin->vout[i].nValue != GetMNCollateral()*COIN); // do not use MN funds 5,000 CAT
                 } else {
                     found = true;
                 }
@@ -2518,7 +2518,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64_t> >& vecSend, 
                 int64_t nTotalValue = nValue + nFeeRet;
                 double dPriority = 0;
 
-                // vouts to the payees with UTXO splitter - D E N A R I U S
+                // vouts to the payees with UTXO splitter - CAT E N A R I U S
                 if(coinControl && !coinControl->fSplitBlock)
                 {
                     BOOST_FOREACH (const PAIRTYPE(CScript, int64_t)& s, vecSend)
@@ -3698,7 +3698,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                     // fortunastakes are in-eligible for payment, burn the coins in-stead
                     std::string burnAddress;
                     if (fTestNet) burnAddress = "8TestXXXXXXXXXXXXXXXXXXXXXXXXbCvpq";
-                    else burnAddress = "DNRXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw";
+                    else burnAddress = "CATXXXXXXXXXXXXXXXXXXXXXXXXXZeeDTw";
                     CBitcoinAddress burnDestination;
                     burnDestination.SetString(burnAddress);
                     payee = GetScriptForDestination(burnDestination.Get());
@@ -3964,7 +3964,7 @@ DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
     return DB_LOAD_OK;
 }
 
-//D E N A R I U S
+//CAT E N A R I U S
 bool CWallet::SetAddressBookName(const CTxDestination& address, const string& strName)
 {
     bool fOwned;
@@ -4391,7 +4391,7 @@ void CWallet::FixSpentCoins(int& nMismatchFound, int64_t& nBalanceInQuestion, bo
         {
             if (IsMine(pcoin->vout[n]) && pcoin->IsSpent(n) && (txindex.vSpent.size() <= n || txindex.vSpent[n].IsNull()))
             {
-                printf("FixSpentCoins found lost coin %s D %s[%d], %s\n",
+                printf("FixSpentCoins found lost coin %s CAT %s[%d], %s\n",
                     FormatMoney(pcoin->vout[n].nValue).c_str(), pcoin->GetHash().ToString().c_str(), n, fCheckOnly? "repair not attempted" : "repairing");
                 nMismatchFound++;
                 nBalanceInQuestion += pcoin->vout[n].nValue;
@@ -4403,7 +4403,7 @@ void CWallet::FixSpentCoins(int& nMismatchFound, int64_t& nBalanceInQuestion, bo
             }
             else if (IsMine(pcoin->vout[n]) && !pcoin->IsSpent(n) && (txindex.vSpent.size() > n && !txindex.vSpent[n].IsNull()))
             {
-                printf("FixSpentCoins found spent coin %s D %s[%d], %s\n",
+                printf("FixSpentCoins found spent coin %s CAT %s[%d], %s\n",
                     FormatMoney(pcoin->vout[n].nValue).c_str(), pcoin->GetHash().ToString().c_str(), n, fCheckOnly? "repair not attempted" : "repairing");
                 nMismatchFound++;
                 nBalanceInQuestion += pcoin->vout[n].nValue;
@@ -6381,7 +6381,7 @@ bool CWallet::SendDToAnon(CStealthAddress& sxAddress, int64_t nValue, std::strin
 
     if (vNodes.empty())
     {
-        sError = _("Error: Denarius is not connected!");
+        sError = _("Error: Haru is not connected!");
         return false;
     };
 
@@ -6489,7 +6489,7 @@ bool CWallet::SendAnonToAnon(CStealthAddress& sxAddress, int64_t nValue, int nRi
 
     if (vNodes.empty())
     {
-        sError = _("Error: Denarius is not connected!");
+        sError = _("Error: Haru is not connected!");
         return false;
     };
 
@@ -6502,7 +6502,7 @@ bool CWallet::SendAnonToAnon(CStealthAddress& sxAddress, int64_t nValue, int nRi
 
     if (nValue + nTransactionFee > GetAnonBalance())
     {
-        sError = "Insufficient Anonymous D funds";
+        sError = "Insufficient Anonymous CAT funds";
         return false;
     };
 
@@ -6585,7 +6585,7 @@ bool CWallet::SendAnonToD(CStealthAddress& sxAddress, int64_t nValue, int nRingS
 
     if (vNodes.empty())
     {
-        sError = _("Error: Denarius is not connected!");
+        sError = _("Error: Haru is not connected!");
         return false;
     };
 
@@ -6598,7 +6598,7 @@ bool CWallet::SendAnonToD(CStealthAddress& sxAddress, int64_t nValue, int nRingS
 
     if (nValue + nTransactionFee > GetAnonBalance())
     {
-        sError = "Insufficient Anonymous D Funds";
+        sError = "Insufficient Anonymous CAT Funds";
         return false;
     };
 
@@ -6949,7 +6949,7 @@ bool CWallet::EstimateAnonFee(int64_t nValue, int nRingSize, std::string& sNarr,
 
     if (nValue + nTransactionFee > GetAnonBalance())
     {
-        sError = "Insufficient Anonymous D funds";
+        sError = "Insufficient Anonymous CAT funds";
         return false;
     };
 

@@ -142,7 +142,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     nLastBlocks(0)
 {
     resize(600, 400);
-    setWindowTitle(tr("Denarius") + " - " + tr("Wallet"));
+    setWindowTitle(tr("Haru") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/denarius"));
     setWindowIcon(QIcon(":icons/denarius"));
@@ -162,7 +162,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     else
         QApplication::setStyle(QStyleFactory::create("Fusion"));
 
-    // Accept D&D of URIs
+    // Accept CAT&CAT of URIs
     setAcceptDrops(true);
 
     // Create actions for the toolbar, menu bar and tray/dock icon
@@ -325,11 +325,11 @@ void BitcoinGUI::createActions()
 	statisticsAction = new QAction(QIcon(":/icons/statistics"), tr("&Statistics"), this);
     statisticsAction->setToolTip(tr("View statistics"));
     statisticsAction->setCheckable(true);
-	statisticsAction->setStatusTip(tr("Denarius Statistics"));
+	statisticsAction->setStatusTip(tr("Haru Statistics"));
     tabGroup->addAction(statisticsAction);
 
 	blockAction = new QAction(QIcon(":/icons/block"), tr("&Block Explorer"), this);
-    blockAction->setToolTip(tr("Explore the Denarius Blockchain"));
+    blockAction->setToolTip(tr("Explore the Haru Blockchain"));
     blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
 	blockAction->setStatusTip(tr("Block Explorer"));
     blockAction->setCheckable(true);
@@ -338,7 +338,7 @@ void BitcoinGUI::createActions()
 	marketAction = new QAction(QIcon(":/icons/mark"), tr("&Market"), this);
     marketAction->setToolTip(tr("Market Data"));
     marketAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-	marketAction->setStatusTip(tr("Denarius Market Data"));
+	marketAction->setStatusTip(tr("Haru Market Data"));
     marketAction->setCheckable(true);
     tabGroup->addAction(marketAction);
 
@@ -348,16 +348,16 @@ void BitcoinGUI::createActions()
     //tabGroup->addAction(chatAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
-    sendCoinsAction->setToolTip(tr("Send coins to a Denarius address"));
+    sendCoinsAction->setToolTip(tr("Send coins to a Haru address"));
     sendCoinsAction->setCheckable(true);
-	sendCoinsAction->setStatusTip(tr("Send Denarius"));
+	sendCoinsAction->setStatusTip(tr("Send Haru"));
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
     receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
-	receiveCoinsAction->setStatusTip(tr("Receive Denarius"));
+	receiveCoinsAction->setStatusTip(tr("Receive Haru"));
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
 
@@ -390,13 +390,13 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(mintingAction);
 
     fortunastakeManagerAction = new QAction(QIcon(":/icons/mn"), tr("&Fortuna Stakes"), this);
-    fortunastakeManagerAction->setToolTip(tr("Show Denarius Fortuna Stakes status and configure your nodes."));
+    fortunastakeManagerAction->setToolTip(tr("Show Haru Fortuna Stakes status and configure your nodes."));
     fortunastakeManagerAction->setCheckable(true);
 	fortunastakeManagerAction->setStatusTip(tr("Fortuna Stakes"));
     tabGroup->addAction(fortunastakeManagerAction);
 
     proofOfImageAction = new QAction(QIcon(":/icons/data"), tr("&Proof of Data"), this);
-    proofOfImageAction ->setToolTip(tr("Timestamp Files on the Denarius blockchain."));
+    proofOfImageAction ->setToolTip(tr("Timestamp Files on the Haru blockchain."));
     proofOfImageAction ->setCheckable(true);
 	proofOfImageAction->setStatusTip(tr("PoD: Timestamp files"));
     tabGroup->addAction(proofOfImageAction);
@@ -434,14 +434,14 @@ void BitcoinGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About Denarius"), this);
-    aboutAction->setToolTip(tr("Show information about Denarius"));
+    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About Haru"), this);
+    aboutAction->setToolTip(tr("Show information about Haru"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for Denarius"));
+    optionsAction->setToolTip(tr("Modify configuration options for Haru"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Show / Hide"), this);
     encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
@@ -474,7 +474,7 @@ void BitcoinGUI::createActions()
     openGraphAction = new QAction(QIcon(":/icons/connect_4"), tr("&Network Monitor"), this);
     openGraphAction->setStatusTip(tr("Show Network Monitor"));
     openPeerAction = new QAction(QIcon(":/icons/connect_4"), tr("&Peers"), this);
-    openPeerAction->setStatusTip(tr("Show Denarius network peers"));
+    openPeerAction->setStatusTip(tr("Show Haru network peers"));
     openConfEditorAction = new QAction(QIcon(":/icons/edit"), tr("Open Wallet &Configuration File"), this);
     openConfEditorAction->setStatusTip(tr("Open configuration file"));
     openMNConfEditorAction = new QAction(QIcon(":/icons/edit"), tr("Open &Fortunastake Configuration File"), this);
@@ -626,7 +626,7 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
 #endif
             if(trayIcon)
             {
-                trayIcon->setToolTip(tr("Denarius client") + QString(" ") + tr("[testnet]"));
+                trayIcon->setToolTip(tr("Haru client") + QString(" ") + tr("[testnet]"));
                 trayIcon->setIcon(QIcon(":/icons/toolbar_testnet"));
                 toggleHideAction->setIcon(QIcon(":/icons/toolbar_testnet"));
             }
@@ -714,7 +714,7 @@ void BitcoinGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("Denarius client"));
+    trayIcon->setToolTip(tr("Haru client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -786,7 +786,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Denarius network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Haru network", "", count));
 
     if(fNativeTor)
     {
@@ -805,7 +805,7 @@ void BitcoinGUI::setNumConnections(int count)
         labelConnectTypeIcon->setToolTip(onionauto);
     } else {
         labelConnectTypeIcon->setPixmap(QIcon(":/icons/toroff").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-        labelConnectTypeIcon->setToolTip(tr("Not Connected via the Tor Network, Start Denarius with the flag nativetor=1"));
+        labelConnectTypeIcon->setToolTip(tr("Not Connected via the Tor Network, Start Haru with the flag nativetor=1"));
     }
 }
 
@@ -814,7 +814,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     // don't bother showing anything if we have no connection to the network
     if (!clientModel || clientModel->getNumConnections() == 0)
     {
-        progressBarLabel->setText(tr("Connecting to the Denarius network..."));
+        progressBarLabel->setText(tr("Connecting to the Haru network..."));
         progressBarLabel->setVisible(true);
         progressBar->setVisible(false);
         return;
@@ -1093,7 +1093,7 @@ void BitcoinGUI::showConfEditor()
         QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(pathConfig.string())));
 	} else {
 		QMessageBox::warning(this, tr("No denarius.conf"),
-        tr("Your denarius.conf does not exist! Please create one in your Denarius data directory."),
+        tr("Your denarius.conf does not exist! Please create one in your Haru data directory."),
         QMessageBox::Ok, QMessageBox::Ok);
 	}
 	//GUIUtil::openConfigfile();
@@ -1109,7 +1109,7 @@ void BitcoinGUI::showMNConfEditor()
         QDesktopServices::openUrl(QUrl::fromLocalFile(QString::fromStdString(pathMNConfig.string())));
 	} else {
 		QMessageBox::warning(this, tr("No fortunastake.conf"),
-        tr("Your fortunastake.conf does not exist! Please create one in your Denarius data directory."),
+        tr("Your fortunastake.conf does not exist! Please create one in your Haru data directory."),
         QMessageBox::Ok, QMessageBox::Ok);
 	}
     //GUIUtil::openMNConfigfile();
@@ -1286,7 +1286,7 @@ void BitcoinGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             gotoSendCoinsPage();
         else
-            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Denarius address or malformed URI parameters."));
+            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Haru address or malformed URI parameters."));
     }
 
     event->acceptProposedAction();
@@ -1301,7 +1301,7 @@ void BitcoinGUI::handleURI(QString strURI)
         gotoSendCoinsPage();
     }
     else
-        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Denarius address or malformed URI parameters."));
+        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid Haru address or malformed URI parameters."));
 }
 
 

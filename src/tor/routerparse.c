@@ -2812,7 +2812,7 @@ int
 networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
 {
   int64_t weight_scale;
-  int64_t G=0, M=0, E=0, D=0, T=0;
+  int64_t G=0, M=0, E=0, CAT=0, T=0;
   double Wgg, Wgm, Wgd, Wmg, Wmm, Wme, Wmd, Weg, Wem, Wee, Wed;
   double Gtotal=0, Mtotal=0, Etotal=0;
   const char *casename = NULL;
@@ -2894,7 +2894,7 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
   Wee /= weight_scale;
   Wed /= weight_scale;
 
-  // Then, gather G, M, E, D, T to determine case
+  // Then, gather G, M, E, CAT, T to determine case
   SMARTLIST_FOREACH_BEGIN(ns->routerstatus_list, routerstatus_t *, rs) {
     int is_exit = 0;
     /* Bug #2203: Don't count bad exits as exits for balancing */
@@ -2902,7 +2902,7 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
     if (rs->has_bandwidth) {
       T += rs->bandwidth_kb;
       if (is_exit && rs->is_possible_guard) {
-        D += rs->bandwidth_kb;
+        CAT += rs->bandwidth_kb;
         Gtotal += Wgd*rs->bandwidth_kb;
         Mtotal += Wmd*rs->bandwidth_kb;
         Etotal += Wed*rs->bandwidth_kb;
@@ -2934,36 +2934,36 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
     if (fabs(Etotal-Mtotal) > 0.01*MAX(Etotal,Mtotal)) {
       log_warn(LD_DIR,
                "Bw Weight Failure for %s: Etotal %f != Mtotal %f. "
-               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                " T="I64_FORMAT". "
                "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                casename, Etotal, Mtotal,
                I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-               I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+               I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
       valid = 0;
     }
     if (fabs(Etotal-Gtotal) > 0.01*MAX(Etotal,Gtotal)) {
       log_warn(LD_DIR,
                "Bw Weight Failure for %s: Etotal %f != Gtotal %f. "
-               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                " T="I64_FORMAT". "
                "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                casename, Etotal, Gtotal,
                I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-               I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+               I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
       valid = 0;
     }
     if (fabs(Gtotal-Mtotal) > 0.01*MAX(Gtotal,Mtotal)) {
       log_warn(LD_DIR,
                "Bw Weight Failure for %s: Mtotal %f != Gtotal %f. "
-               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+               "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                " T="I64_FORMAT". "
                "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                casename, Mtotal, Gtotal,
                I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-               I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+               I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
       valid = 0;
     }
@@ -2972,11 +2972,11 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
     int64_t S = MAX(E, G);
     /*
      * Case 2: Both Guards and Exits are scarce
-     * Balance D between E and G, depending upon
-     * D capacity and scarcity. Devote no extra
+     * Balance CAT between E and G, depending upon
+     * CAT capacity and scarcity. Devote no extra
      * bandwidth to middle nodes.
      */
-    if (R+D < S) { // Subcase a
+    if (R+CAT < S) { // Subcase a
       double Rtotal, Stotal;
       if (E < G) {
         Rtotal = Etotal;
@@ -2990,12 +2990,12 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
       if (Rtotal > Stotal) {
         log_warn(LD_DIR,
                    "Bw Weight Failure for %s: Rtotal %f > Stotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Rtotal, Stotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
@@ -3004,11 +3004,11 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         log_warn(LD_DIR,
                    "Bw Weight Failure for %s: 3*Rtotal %f > T "
                    I64_FORMAT". G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT
-                   " D="I64_FORMAT" T="I64_FORMAT". "
+                   " CAT="I64_FORMAT" T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Rtotal*3, I64_PRINTF_ARG(T),
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
@@ -3017,11 +3017,11 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         log_warn(LD_DIR,
                    "Bw Weight Failure for %s: 3*Stotal %f > T "
                    I64_FORMAT". G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT
-                   " D="I64_FORMAT" T="I64_FORMAT". "
+                   " CAT="I64_FORMAT" T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Stotal*3, I64_PRINTF_ARG(T),
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
@@ -3030,54 +3030,54 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         log_warn(LD_DIR,
                    "Bw Weight Failure for %s: 3*Mtotal %f < T "
                    I64_FORMAT". "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Mtotal*3, I64_PRINTF_ARG(T),
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
-    } else { // Subcase b: R+D > S
+    } else { // Subcase b: R+CAT > S
       casename = "Case 2b";
 
       /* Check the rare-M redirect case. */
-      if (D != 0 && 3*M < T) {
+      if (CAT != 0 && 3*M < T) {
         casename = "Case 2b (balanced)";
         if (fabs(Etotal-Mtotal) > 0.01*MAX(Etotal,Mtotal)) {
           log_warn(LD_DIR,
                    "Bw Weight Failure for %s: Etotal %f != Mtotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Etotal, Mtotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
         if (fabs(Etotal-Gtotal) > 0.01*MAX(Etotal,Gtotal)) {
           log_warn(LD_DIR,
                    "Bw Weight Failure for %s: Etotal %f != Gtotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Etotal, Gtotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
         if (fabs(Gtotal-Mtotal) > 0.01*MAX(Gtotal,Mtotal)) {
           log_warn(LD_DIR,
                    "Bw Weight Failure for %s: Mtotal %f != Gtotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Mtotal, Gtotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
@@ -3085,12 +3085,12 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         if (fabs(Etotal-Gtotal) > 0.01*MAX(Etotal,Gtotal)) {
           log_warn(LD_DIR,
                    "Bw Weight Failure for %s: Etotal %f != Gtotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Etotal, Gtotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
@@ -3099,7 +3099,7 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
   } else { // if (E < T/3 || G < T/3) {
     int64_t S = MIN(E, G);
     int64_t NS = MAX(E, G);
-    if (3*(S+D) < T) { // Subcase a:
+    if (3*(S+CAT) < T) { // Subcase a:
       double Stotal;
       double NStotal;
       if (G < E) {
@@ -3116,11 +3116,11 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         log_warn(LD_DIR,
                    "Bw Weight Failure for %s: 3*Stotal %f > T "
                    I64_FORMAT". G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT
-                   " D="I64_FORMAT" T="I64_FORMAT". "
+                   " CAT="I64_FORMAT" T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, Stotal*3, I64_PRINTF_ARG(T),
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
@@ -3128,12 +3128,12 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
         if (fabs(NStotal-Mtotal) > 0.01*MAX(NStotal,Mtotal)) {
           log_warn(LD_DIR,
                    "Bw Weight Failure for %s: NStotal %f != Mtotal %f. "
-                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                   "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                    " T="I64_FORMAT". "
                    "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                    casename, NStotal, Mtotal,
                    I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                   I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                   I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                    Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
@@ -3143,50 +3143,50 @@ networkstatus_verify_bw_weights(networkstatus_t *ns, int consensus_method)
           log_warn(LD_DIR,
                      "Bw Weight Failure for %s: 3*NStotal %f < T "
                      I64_FORMAT". G="I64_FORMAT" M="I64_FORMAT
-                     " E="I64_FORMAT" D="I64_FORMAT" T="I64_FORMAT". "
+                     " E="I64_FORMAT" CAT="I64_FORMAT" T="I64_FORMAT". "
                      "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                      casename, NStotal*3, I64_PRINTF_ARG(T),
                      I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                     I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                     I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                      Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
           valid = 0;
         }
       }
-    } else { // Subcase b: S+D >= T/3
+    } else { // Subcase b: S+CAT >= T/3
       casename = "Case 3b";
       if (fabs(Etotal-Mtotal) > 0.01*MAX(Etotal,Mtotal)) {
         log_warn(LD_DIR,
                  "Bw Weight Failure for %s: Etotal %f != Mtotal %f. "
-                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                  " T="I64_FORMAT". "
                  "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                  casename, Etotal, Mtotal,
                  I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                 I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                 I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                  Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
       if (fabs(Etotal-Gtotal) > 0.01*MAX(Etotal,Gtotal)) {
         log_warn(LD_DIR,
                  "Bw Weight Failure for %s: Etotal %f != Gtotal %f. "
-                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                  " T="I64_FORMAT". "
                  "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                  casename, Etotal, Gtotal,
                  I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                 I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                 I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                  Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }
       if (fabs(Gtotal-Mtotal) > 0.01*MAX(Gtotal,Mtotal)) {
         log_warn(LD_DIR,
                  "Bw Weight Failure for %s: Mtotal %f != Gtotal %f. "
-                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" D="I64_FORMAT
+                 "G="I64_FORMAT" M="I64_FORMAT" E="I64_FORMAT" CAT="I64_FORMAT
                  " T="I64_FORMAT". "
                  "Wgg=%f Wgd=%f Wmg=%f Wme=%f Wmd=%f Wee=%f Wed=%f",
                  casename, Mtotal, Gtotal,
                  I64_PRINTF_ARG(G), I64_PRINTF_ARG(M), I64_PRINTF_ARG(E),
-                 I64_PRINTF_ARG(D), I64_PRINTF_ARG(T),
+                 I64_PRINTF_ARG(CAT), I64_PRINTF_ARG(T),
                  Wgg, Wgd, Wmg, Wme, Wmd, Wee, Wed);
         valid = 0;
       }

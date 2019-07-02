@@ -1,4 +1,4 @@
-// Copyright (c) 2017 The Denarius developers
+// Copyright (c) 2017 The Haru developers
 // Copyright (c) 2009-2012 The Darkcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -224,7 +224,7 @@ class CFortunaSession
 class CForTunaPool
 {
 public:
-    static const int PROTOCOL_VERSION = 31005; //31005, D v3.3
+    static const int PROTOCOL_VERSION = 31005; //31005, CAT v3.3
 
     // clients entries
     std::vector<CForTunaEntry> myEntries;

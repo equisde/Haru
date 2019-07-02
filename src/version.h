@@ -30,7 +30,7 @@ static const int DATABASE_VERSION = 21212;
 // network protocol versioning
 //
 
-static const int PROTOCOL_VERSION = 33500; //Protocol is now 33500 as of D v3.3.5
+static const int PROTOCOL_VERSION = 33500; //Protocol is now 33500 as of CAT v3.3.5
 
 // intial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 21212;

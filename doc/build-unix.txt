@@ -1,4 +1,4 @@
-Copyright (c) 2017-2019 Denarius Developers
+Copyright (c) 2017-2019 Haru Developers
 Distributed under the MIT/X11 software license, see the accompanying
 file license.txt or http://www.opensource.org/licenses/mit-license.php.
 This product includes software developed by the OpenSSL Project for use in
@@ -14,9 +14,9 @@ To Build
 --------
 
 cd src/
-make -f makefile.unix            # Headless Denarius
+make -f makefile.unix            # Headless Haru
 
-See readme-qt.rst for instructions on building Denarius QT,
+See readme-qt.rst for instructions on building Haru QT,
 the graphical denarius.
 
 Dependencies
@@ -48,7 +48,7 @@ your package manager. Set USE_QRCODE to control this:
  USE_QRCODE=0   (the default) No QRCode support - libqrcode not required
  USE_QRCODE=1   QRCode support enabled
  
-The included Tor C Library may be used to build with Denarius for Native Tor support
+The included Tor C Library may be used to build with Haru for Native Tor support
 USE_NATIVETOR=- Build with no Native Tor Support
 USE_NATIVETOR=1 Build with Native Tor Support
 (e.g. make "USE_NATIVETOR=-" -f makefile.unix) To build without Tor support

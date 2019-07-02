@@ -136,7 +136,7 @@
              <string>Total of coins that was staked, and do not yet count toward the current balance</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -165,7 +165,7 @@
              <string>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -188,7 +188,7 @@
              <string>Your current spendable balance</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -214,7 +214,7 @@
              <string>Balance from new stakes or coins that is not mature enough to be spent</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -252,7 +252,7 @@
              <string>Current total balance in watch-only addresses</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -277,7 +277,7 @@
              <string>Your current balance in watch-only addresses</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -316,7 +316,7 @@
              <string>Mined balance in watch-only addresses that has not yet matured</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -394,7 +394,7 @@
              <string>Unconfirmed transactions to watch-only addresses</string>
             </property>
             <property name="text">
-             <string notr="true">0 D</string>
+             <string notr="true">0 CAT</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -449,7 +449,7 @@
              <string>Balance locked from usage, e.g. masternode collateral</string>
             </property>
             <property name="text">
-             <string>0 D</string>
+             <string>0 CAT</string>
             </property>
             <property name="textInteractionFlags">
              <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -542,7 +542,7 @@
            <string>Your current total balance</string>
           </property>
           <property name="text">
-           <string notr="true">35626236326.63632636 D</string>
+           <string notr="true">35626236326.63632636 CAT</string>
           </property>
           <property name="textInteractionFlags">
            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -564,14 +564,14 @@
              <string notr="true"/>
             </property>
             <property name="text">
-             <string>Denarius Wallet</string>
+             <string>Haru Wallet</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLabel" name="labelWalletStatus">
             <property name="toolTip">
-             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Denarius network after a connection is established, but this process has not completed yet.</string>
+             <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Haru network after a connection is established, but this process has not completed yet.</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QLabel { color: red; }</string>
@@ -590,7 +590,7 @@
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="text">
-             <string>&lt;div style=&quot;color: #fff;&quot;&gt;(&lt;a href=&quot;https://www.coinexchange.io/market/D/BTC&quot; style=&quot;color: #fff;&quot;&gt;Trade D&lt;/a&gt;)&lt;/div&gt;</string>
+             <string>&lt;div style=&quot;color: #fff;&quot;&gt;(&lt;a href=&quot;https://www.coinexchange.io/market/CAT/BTC&quot; style=&quot;color: #fff;&quot;&gt;Trade CAT&lt;/a&gt;)&lt;/div&gt;</string>
             </property>
             <property name="openExternalLinks">
              <bool>true</bool>
@@ -692,7 +692,7 @@
         <item>
          <widget class="QLabel" name="labelTransactionsStatus">
           <property name="toolTip">
-           <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Denarius network after a connection is established, but this process has not completed yet.</string>
+           <string>The displayed information may be out of date. Your wallet automatically synchronizes with the Haru network after a connection is established, but this process has not completed yet.</string>
           </property>
           <property name="styleSheet">
            <string notr="true">QLabel { color: red; }</string>
@@ -781,7 +781,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Denarius News:</string>
+           <string>Haru News:</string>
           </property>
          </widget>
         </item>
