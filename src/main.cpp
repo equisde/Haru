@@ -3843,7 +3843,7 @@ bool LoadBlockIndex(bool fAllowNew)
         pchMessageStart[0] = 0x04;
         pchMessageStart[1] = 0x1b;
         pchMessageStart[2] = 0x0c;
-        pchMessageStart[3] = 0x0x;
+        pchMessageStart[3] = 0x0a;
 
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 16 bits PoW target limit for testnet
         nStakeMinAge = 1 * 60 * 60; // test net min age is 1 hour
@@ -3867,9 +3867,9 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "http://www.coindesk.com/bitcoin-shttps://www.coindesk.com/bitcoins-kimchi-premium-returns-with-1k-price-spreads-on-crypto-exchangescaling-give-everyone-control/";
+        const char* pszTimestamp = "https://www.coindesk.com/june-sets-records-for-cme-bitcoin-futures-as-sign-ups-surge-30";
         CTransaction txNew;
-        txNew.nTime = 1497476511;
+        txNew.nTime = 1562038468;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -3882,13 +3882,13 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nTime    = 1562038468;
         block.nVersion = 1;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-		    block.nNonce   = 1;
+		    block.nNonce   = 2146341;
 
 		    if(fTestNet)
         {
-            block.nNonce   = 13278;
+            block.nNonce   = 0;
         }
-        if (true && (block.GetHash() != hashGenesisBlock)) {
+        if (false && (block.GetHash() != hashGenesisBlock)) {
 
         // This will figure out a valid hash and Nonce if you're
         // creating a different genesis block:
@@ -3911,7 +3911,7 @@ bool LoadBlockIndex(bool fAllowNew)
 
 
         //// debug print
-        assert(block.hashMerkleRoot == uint256("0x"));
+        assert(block.hashMerkleRoot == uint256("0x9012a529b7c4a65f2be0517b82e54d88e5ee844d8b22c73e823099b74995083e"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
@@ -4315,7 +4315,7 @@ void static ProcessGetData(CNode* pfrom)
 // The message start string is designed to be unlikely to occur in normal data.
 // The characters are rarely used upper ASCII, not valid as UTF-8, and produce
 // a large 4-byte int at any alignment.
-unsigned char pchMessageStart[4] = { 0xfa, 0xf2, 0xef, 0xb4 };
+unsigned char pchMessageStart[4] = { 0xf3, 0xa2, 0x3f, 0xb3 };
 
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, int64_t nTimeReceived)
 {
